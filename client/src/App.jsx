@@ -1,8 +1,14 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import Auth from "./pages/auth";
+import "./app.scss";
 function App() {
   return (
     <>
-      <Auth />
+      <Router>
+        <div className="container">
+          <Auth />
+        </div>
+      </Router>
     </>
   );
 }

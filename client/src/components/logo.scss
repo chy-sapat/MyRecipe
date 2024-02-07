@@ -1,8 +1,16 @@
-$primary_color: #ffb534;
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-.logo{
-    font-family: 'Pacifico', serif, Helvetica;
-    font-size: 48px;
-    color: $primary_color;
-    text-shadow: 2px 2px 4px rgba($color: #000000, $alpha: 0.5);
+$primary_color: #fc6736;
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+.logo {
+  font-family: "Pacifico", serif, Helvetica;
+  font-size: 32px;
+  color: $primary_color;
+  text-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0.7);
+  width: fit-content;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+    font-size: 24px;
+  }
 }

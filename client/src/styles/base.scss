@@ -1,1 +1,36 @@
-$neutral_color: #272727;
+$accent_color: #65b741;
+$neutral_color: #6d6363;
+$neutral_color2: #f2f1eb;
+$neutral_color3: #302a2a;
+
+//font weight
+$bold: 700;
+$medium: 500;
+$regular: 400;
+
+@mixin buttons-tmplate {
+  padding-block: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: $medium;
+  color: $neutral_color2;
+  background-color: $accent_color;
+  border: 1px solid $accent_color;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    color: $accent_color;
+    background-color: $neutral_color2;
+  }
+}
+
+@mixin login-page-imgs {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px 0px $neutral_color3;
+}

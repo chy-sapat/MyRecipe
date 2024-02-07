@@ -1,0 +1,154 @@
+@use "./base.scss" as base;
+
+.auth-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background: url("../assets/bgimg1.png");
+  background-size: cover;
+}
+.login-form-container {
+  width: clamp(420px, 40%, 600px);
+  padding: 1.5rem 2.5rem;
+  background-color: base.$neutral_color2;
+  box-shadow: 4px 4px 10px 0px base.$neutral_color;
+  z-index: 1;
+}
+
+.bg-image {
+  width: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .signup-btn {
+    @include base.buttons-tmplate;
+    padding-inline: 1.5rem;
+  }
+}
+
+.login-form {
+  width: 70%;
+  min-width: 350px;
+  padding: 1rem;
+  margin-top: 10rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    color: base.$neutral_color;
+    margin-bottom: 3rem;
+    font-weight: base.$bold;
+    user-select: none;
+  }
+
+  .form-group {
+    position: relative;
+    margin-bottom: 2rem;
+    color: base.$neutral_color;
+
+    label {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      transition: 0.3s ease;
+
+      &:has(+ input:focus),
+      &:has(+ input:valid) {
+        top: -1rem;
+      }
+    }
+
+    input {
+      padding: 0.5rem;
+      width: 100%;
+      font-size: 1.25rem;
+      color: base.$neutral_color;
+      background-color: base.$neutral_color2;
+      border: none;
+      border-bottom: 1px solid base.$neutral_color;
+      outline: none;
+    }
+
+    .show-hide-icon {
+      padding: 0.5rem;
+      width: fit-content;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: base.$accent_color;
+      }
+    }
+  }
+  button {
+    margin-bottom: 1rem;
+    @include base.buttons-tmplate;
+  }
+  a {
+    text-align: center;
+    font-size: 1rem;
+    color: base.$neutral_color;
+
+    &:hover {
+      color: rgba($color: base.$neutral_color, $alpha: 0.7);
+    }
+  }
+}
+
+.bg-image {
+  padding: 2rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  .slogan {
+    width: 40%;
+    padding: 1rem;
+    color: base.$neutral_color;
+    user-select: none;
+    .title {
+      color: #534f50;
+      font-size: 2.625rem;
+      font-weight: base.$bold;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      font-weight: base.$regular;
+    }
+  }
+
+  .img-collage {
+    width: clamp(350px, 50%, 450px);
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    flex-shrink: 0;
+
+    img:nth-child(1) {
+      @include base.login-page-imgs;
+      grid-row: 2 / 3;
+    }
+    img:nth-child(2) {
+      @include base.login-page-imgs;
+      grid-row: 1 / 2;
+    }
+    img:nth-child(3) {
+      @include base.login-page-imgs;
+      height: 100%;
+      aspect-ratio: auto;
+      grid-row: 1 / 3;
+      grid-column: 2 / 3;
+    }
+  }
+}
