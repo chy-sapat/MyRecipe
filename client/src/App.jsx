@@ -1,18 +1,14 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import Auth from "./pages/auth";
+import "./app.scss";
 function App() {
   return (
     <>
-      <div className="container">
-        <section className="image"></section>
-        <section className="header">Sign in</section>
-        <form action="" method="post">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" />
-          <button type="submit"></button>
-        </form>
-      </div>
+      <Router>
+        <div className="container">
+          <Auth />
+        </div>
+      </Router>
     </>
   );
 }
