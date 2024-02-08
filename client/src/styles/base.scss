@@ -2,6 +2,12 @@ $accent_color: #65b741;
 $neutral_color: #6d6363;
 $neutral_color2: #f2f1eb;
 $neutral_color3: #302a2a;
+$neutral_color4: #534f50;
+
+$bgcolor1: rgba(
+  $color: $neutral_color2,
+  $alpha: 0.7,
+);
 
 //font weight
 $bold: 700;
@@ -23,7 +29,7 @@ $regular: 400;
   &:hover,
   &:focus {
     color: $accent_color;
-    background-color: $neutral_color2;
+    background-color: $bgcolor1;
   }
 }
 

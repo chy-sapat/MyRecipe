@@ -11,6 +11,12 @@ $primary_color: #fc6736;
 
 @media screen and (max-width: 600px) {
   .logo {
-    font-size: 24px;
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .logo {
+    font-size: 32px;
   }
 }

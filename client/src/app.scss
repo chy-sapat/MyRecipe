@@ -12,3 +12,9 @@
   font-weight: base.$regular;
   background-color: base.$neutral_color2;
 }
+
+@media screen and (max-width: 850px) {
+  .container {
+    height: 100dvh;
+  }
+}
