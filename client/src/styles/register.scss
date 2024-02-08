@@ -1,0 +1,75 @@
+@use "./base.scss" as base;
+.register-form-container {
+  width: clamp(420px, 40%, 600px);
+  padding: 1.5rem 2.5rem;
+  background-color: base.$neutral_color2;
+  box-shadow: 4px 4px 10px 0px base.$neutral_color;
+  z-index: 1;
+  margin-inline: auto;
+}
+.signin-button {
+  @include base.buttons-tmplate;
+  padding-inline: 1.5rem;
+}
+.signup {
+  width: 70%;
+  padding: 3rem;
+  margin-top: 8rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  h2 {
+    text-align: center;
+    color: base.$neutral_color;
+    font-size: 1.75rem;
+    margin-bottom: 3rem;
+    font-weight: base.$bold;
+    user-select: none;
+  }
+  .form-group {
+    position: relative;
+    margin-bottom: 2rem;
+    color: base.$neutral_color;
+  }
+  label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    transition: 0.3s ease;
+
+    &:has(+ input:focus),
+    &:has(+ input:valid) {
+      top: -1rem;
+    }
+  }
+  input {
+    padding: 0.5rem;
+    width: 100%;
+    font-size: 1.25rem;
+    color: base.$neutral_color;
+    background-color: base.$neutral_color2;
+    border: none;
+    border-bottom: 1px solid base.$neutral_color;
+    outline: none;
+  }
+  .show-hide-icon {
+    padding: 0.5rem;
+    width: fit-content;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: base.$accent_color;
+    }
+  }
+  .signup-button {
+    @include base.buttons-tmplate;
+  }
+  p {
+    margin-top: 13px;
+    font-size: 0.8rem;
+    font-weight: base.$regular;
+  }
+}
