@@ -1,4 +1,4 @@
-$primary_color: #fc6736;
+@use "./base.scss" as base;
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 .logo {
   font-family: "Pacifico", serif, Helvetica;
