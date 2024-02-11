@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Auth from "./pages/auth";
 import "./app.scss";
 function App() {
@@ -6,7 +6,9 @@ function App() {
     <>
       <Router>
         <div className="container">
-          <Auth />
+          <Routes>
+            <Route path="/auth/*" element={<Auth />}></Route>
+          </Routes>
         </div>
       </Router>
     </>

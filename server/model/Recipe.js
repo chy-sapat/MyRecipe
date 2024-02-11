@@ -4,11 +4,11 @@ const RecipeSchema = new mongoose.Schema({
   userid: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   title: { type: String, required: true },
   description: { type: String },
-  ingredients: [{ type: String }],
-  steps: [{ type: String }],
+  ingredients: [{ type: String, required: true }],
+  steps: [{ type: String, required: true }],
   attachment: [{ type: String }],
-  rating: { type: Number },
-  ratings: [{ type: Number }],
+  likes: { type: Number },
+  likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   comments: { type: Array, default: [] },
 });
 

@@ -1,75 +1,127 @@
 @use "./base.scss" as base;
-.register-form-container {
-  width: clamp(420px, 40%, 600px);
-  padding: 1.5rem 2.5rem;
-  background-color: base.$neutral_color2;
-  box-shadow: 4px 4px 10px 0px base.$neutral_color;
-  z-index: 1;
-  margin-inline: auto;
+
+.signup-form-container {
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .signin-btn {
+      @include base.buttons-tmplate;
+      padding-inline: 1.5rem;
+    }
+  }
 }
-.signin-button {
-  @include base.buttons-tmplate;
-  padding-inline: 1.5rem;
-}
-.signup {
-  width: 70%;
-  padding: 3rem;
-  margin-top: 8rem;
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
+.signup-form {
+  @include base.form-templete-one;
+  color: base.$neutral_color;
   h2 {
-    text-align: center;
-    color: base.$neutral_color;
     font-size: 1.75rem;
     margin-bottom: 3rem;
     font-weight: base.$bold;
     user-select: none;
   }
   .form-group {
+    width: 100%;
     position: relative;
     margin-bottom: 2rem;
-    color: base.$neutral_color;
-  }
-  label {
-    position: absolute;
-    top: 0.5rem;
-    left: 0.5rem;
-    transition: 0.3s ease;
 
-    &:has(+ input:focus),
-    &:has(+ input:valid) {
-      top: -1rem;
+    label {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      transition: 0.3s ease;
+
+      &:has(+ input:focus),
+      &:has(+ input:valid) {
+        top: -1rem;
+      }
     }
-  }
-  input {
-    padding: 0.5rem;
-    width: 100%;
-    font-size: 1.25rem;
-    color: base.$neutral_color;
-    background-color: base.$neutral_color2;
-    border: none;
-    border-bottom: 1px solid base.$neutral_color;
-    outline: none;
-  }
-  .show-hide-icon {
-    padding: 0.5rem;
-    width: fit-content;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
+    input {
+      padding: 0.5rem;
+      width: 100%;
+      font-size: 1.25rem;
+      color: base.$neutral_color;
+      background-color: base.$neutral_color2;
+      border: none;
+      border-bottom: 1px solid base.$neutral_color;
+      outline: none;
+    }
+    .show-hide-icon {
+      padding: 0.5rem;
+      width: fit-content;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
 
-    &:hover {
-      color: base.$accent_color;
+      &:hover {
+        color: base.$accent_color;
+      }
     }
   }
   .signup-button {
     @include base.buttons-tmplate;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  span {
+    cursor: pointer;
+    font-size: 1rem;
+    color: base.$neutral_color;
   }
   p {
     margin-top: 13px;
     font-size: 0.8rem;
     font-weight: base.$regular;
+  }
+  .signin-link-responsive {
+    display: none;
+    font-size: 1rem;
+  }
+  .back-icon {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 1rem;
+    font-weight: base.$medium;
+    cursor: pointer;
+
+    &:hover {
+      color: rgba($color: base.$accent_color, $alpha: 0.7);
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .signup-form-container {
+    header {
+      justify-content: center;
+    }
+
+    .signin-btn {
+      display: none;
+    }
+
+    .signin-link-responsive {
+      display: block;
+    }
+
+    .signup-form {
+      margin-top: 2rem;
+
+      .back-icon {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 1.125rem;
+      }
+    }
+    .signup-link-responsive {
+      display: block;
+      margin-top: 1rem;
+      color: base.$neutral_color;
+    }
   }
 }

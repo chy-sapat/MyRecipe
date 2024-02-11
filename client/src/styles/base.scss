@@ -1,3 +1,4 @@
+$primary_color: #fc6736;
 $accent_color: #65b741;
 $neutral_color: #6d6363;
 $neutral_color2: #f2f1eb;
@@ -13,6 +14,17 @@ $bgcolor1: rgba(
 $bold: 700;
 $medium: 500;
 $regular: 400;
+
+@mixin form-templete-one {
+  width: 70%;
+  min-width: 300px;
+  padding: 1rem;
+  margin-top: 8rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 @mixin buttons-tmplate {
   padding-block: 0.5rem;
