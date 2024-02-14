@@ -14,6 +14,7 @@
 .login-form-container,
 .signup-form-container {
   position: relative;
+  margin-left: 1rem;
   width: clamp(420px, 40%, 550px);
   flex-shrink: 0;
   padding: 2rem 2.5rem 8rem;
@@ -21,12 +22,6 @@
   background-color: rgba($color: base.$neutral_color2, $alpha: 0.8);
   box-shadow: 4px 4px 10px 0px base.$neutral_color;
   z-index: 1;
-  transition: width 0.3s linear;
-}
-
-.login-form-container[aria-expanded="false"],
-.signup-form-container[aria-expanded="false"] {
-  display: none;
 }
 
 .bg-image {
@@ -118,17 +113,17 @@
 
 @media screen and (max-width: 500px) {
   .auth-container {
-    padding: 0;
-    background-position: left bottom;
+    background-position: center bottom;
   }
 
   .login-form-container,
   .signup-form-container {
     width: 100%;
+    margin: 0;
     min-width: 365px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     position: relative;
   }
 }

@@ -15,6 +15,7 @@
 
 .login-form {
   @include base.form-templete-one;
+  width: min(100%, 340px);
   h2 {
     font-size: 1.75rem;
     color: base.$neutral_color;
@@ -37,7 +38,7 @@
 
       &:has(+ input:focus),
       &:has(+ input:valid) {
-        top: -1rem;
+        top: -1.125rem;
       }
     }
 
@@ -45,9 +46,9 @@
       background-color: base.$bgcolor1;
       padding: 0.5rem;
       width: 100%;
-      font-size: 1rem;
+      font-size: 0.875rem;
       color: base.$neutral_color;
-      background-color: base.$neutral_color2;
+      background: transparent;
       border: none;
       border-bottom: 1px solid base.$neutral_color;
       outline: none;
@@ -64,6 +65,11 @@
       &:hover {
         color: base.$accent_color;
       }
+    }
+    .errorMsg {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: base.$error_color;
     }
   }
   button {
@@ -95,9 +101,6 @@
       display: none;
     }
 
-    .login-form {
-      margin-top: 2rem;
-    }
     .signup-link-responsive {
       display: block;
       margin-top: 1rem;

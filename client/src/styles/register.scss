@@ -14,6 +14,7 @@
 }
 .signup-form {
   @include base.form-templete-one;
+  width: min(100%, 340px);
   color: base.$neutral_color;
   h2 {
     font-size: 1.75rem;
@@ -24,25 +25,34 @@
   .form-group {
     width: 100%;
     position: relative;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
 
     label {
       position: absolute;
       top: 0.5rem;
       left: 0.5rem;
-      transition: 0.3s ease;
+      transition: 0.2s ease;
 
       &:has(+ input:focus),
       &:has(+ input:valid) {
-        top: -1rem;
+        top: -1.25rem;
       }
+
+      // &:has(+ .invalid-password) {
+      //   color: red;
+      // }
+      // &:has(+ .valid-password) {
+      //   color: green;
+      // }
     }
     input {
       padding: 0.5rem;
       width: 100%;
-      font-size: 1.25rem;
+      font-size: 1rem;
       color: base.$neutral_color;
-      background-color: base.$neutral_color2;
+      background: transparent;
+      // border: 1px solid base.$neutral_color;
+      // border-radius: 25px;
       border: none;
       border-bottom: 1px solid base.$neutral_color;
       outline: none;
@@ -59,10 +69,32 @@
         color: base.$accent_color;
       }
     }
+
+    //Email Validation
+
+    .invalid-email {
+      border-color: base.$error_color;
+    }
+    //password validation
+    .valid-password {
+      border-color: green;
+    }
+
+    .invalid-password {
+      border-color: base.$error_color;
+    }
+
+    p {
+      color: base.$error_color;
+    }
+  }
+
+  .errorMsg {
+    color: base.$error_color;
   }
   .signup-button {
     @include base.buttons-tmplate;
-    margin-bottom: 1rem;
+    margin-block: 2rem 1rem;
     width: 100%;
   }
   span {
@@ -80,20 +112,38 @@
     font-size: 1rem;
   }
   .back-icon {
-    margin-right: auto;
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 0.25rem;
     font-size: 1rem;
     font-weight: base.$medium;
     cursor: pointer;
+    margin-right: auto;
 
-    &:hover {
+    &:hover,
+    &:hover > span {
       color: rgba($color: base.$accent_color, $alpha: 0.7);
     }
   }
+
+  .password-validation-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    width: 100%;
+    margin-top: 0.5rem;
+    border: 1px solid base.$error_color;
+    border-radius: 5px;
+    padding: 0.5rem;
+    background-color: rgba($color: base.$neutral_color, $alpha: 0.5);
+    color: base.$error_color;
+    font-size: 0.875rem;
+    font-weight: base.$regular;
+  }
 }
 
+//Responsive
 @media screen and (max-width: 500px) {
   .signup-form-container {
     header {
@@ -109,12 +159,10 @@
     }
 
     .signup-form {
-      margin-top: 2rem;
-
       .back-icon {
         position: absolute;
-        top: 1rem;
-        left: 1rem;
+        top: 2.25rem;
+        left: 2rem;
         font-size: 1.125rem;
       }
     }
@@ -123,5 +171,87 @@
       margin-top: 1rem;
       color: base.$neutral_color;
     }
+  }
+}
+
+//Email Verification Modal
+
+.email-verification-modal-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: base.$neutral_color, $alpha: 0.7);
+  z-index: 2;
+}
+
+.email-verification-wrapper {
+  position: relative;
+  width: clamp(320px, 40%, 385px);
+  padding: 1rem 2rem;
+  border: 1px solid base.$neutral_color;
+  border-radius: 5px;
+  background-color: base.$neutral_color2;
+
+  .back-icon {
+    margin-block: 1rem;
+    text-align: center;
+    gap: 0.25rem;
+    font-size: 1rem;
+    font-weight: base.$medium;
+    cursor: pointer;
+
+    &:hover,
+    &:hover > span {
+      color: rgba($color: base.$accent_color, $alpha: 0.7);
+    }
+  }
+
+  .heading {
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: base.$bold;
+  }
+  .descriptive-text {
+    font-weight: base.$regular;
+    line-height: 1.25rem;
+    margin-block: 0.5rem;
+  }
+
+  .otp-container {
+    margin-block: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    input::-webkit-inner-spin-button {
+      display: none;
+    }
+    input {
+      width: 3rem;
+      border: 1px transparent;
+      border-bottom: 1px solid base.$neutral_color;
+      background: transparent;
+      outline: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: base.$medium;
+      appearance: textfield;
+      -moz-appearance: textfield;
+      -webkit-appearance: textfield;
+    }
+    .valid {
+      border: 1px solid green;
+    }
+    .invalid {
+      border: 1px solid red;
+    }
+  }
+
+  .resend-link {
+    text-align: center;
   }
 }

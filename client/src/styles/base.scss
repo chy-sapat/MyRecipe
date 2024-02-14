@@ -5,6 +5,8 @@ $neutral_color2: #f2f1eb;
 $neutral_color3: #302a2a;
 $neutral_color4: #534f50;
 
+$error_color: #b00020;
+
 $bgcolor1: rgba(
   $color: $neutral_color2,
   $alpha: 0.7,
@@ -16,7 +18,6 @@ $medium: 500;
 $regular: 400;
 
 @mixin form-templete-one {
-  width: 70%;
   min-width: 300px;
   padding: 1rem;
   margin-top: 8rem;

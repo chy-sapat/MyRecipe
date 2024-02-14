@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import nodemailer from "nodemailer";
 import "dotenv/config";
 
 import { UserRouter } from "./route/user.js";
@@ -12,10 +13,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect(process.env.DB_URI);
+mongoose
+  .connect(process.env.DB_URI)
+  .then(() => console.log("Connected to database"));
 //Route with file
 app.use("/auth/register", register);
-//Routes withour files
+//Routes without files
 app.use("/auth", UserRouter);
 
 app.listen(port, () => {

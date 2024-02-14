@@ -1,0 +1,7 @@
+@use "./base.scss";
+
+nav {
+  width: fit-content;
+  padding: 1rem 2rem;
+  background-color: base.$neutral_color2;
+}
