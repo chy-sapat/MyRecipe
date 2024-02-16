@@ -4,7 +4,7 @@ import "./app.scss";
 import Login from "./pages/Auth/login";
 import Register from "./pages/Auth/register";
 import Spinner from "./components/loadingSpinner";
-import Feed from "./pages/Home/feed";
+import Layout from "./pages/Home/Layout";
 import { useEffect } from "react";
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Router>
         <div className="container">
           <Routes>
-            <Route index element={<Feed />} />
+            <Route path="/*" element={<Layout />} />
             <Route path="/auth" element={<Auth />}>
               <Route index element={<Login />} />
               <Route path="signup" element={<Register />} />

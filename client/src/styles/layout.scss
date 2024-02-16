@@ -1,0 +1,29 @@
+@use "./base.scss";
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  background-color: base.$neutral_color2;
+  height: 100%;
+
+  main {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    background-color: base.$neutral_color5;
+  }
+
+  .main-body {
+    height: 100%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .layout-container {
+    .main-body {
+      flex: 5;
+    }
+  }
+}

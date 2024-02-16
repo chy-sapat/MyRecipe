@@ -41,6 +41,7 @@ const Login = () => {
       if (email.current == data.email) {
         if (password.current == data.password) {
           console.log("Logged In");
+          navigate("/", { replace: true });
         } else {
           setPasswordError(!passwordError);
           console.log(`Password Error: ${passwordError}`);
@@ -106,7 +107,7 @@ const Login = () => {
             className="signin-btn"
             onClick={(e) => e.currentTarget.blur()}
           >
-            {!loading ? "Sign In" : <Spinner size="20px" />}
+            {!loading ? "SIGN IN" : <Spinner size="20px" />}
           </button>
           <span>Forgot Password</span>
           <p className="signup-link-responsive">

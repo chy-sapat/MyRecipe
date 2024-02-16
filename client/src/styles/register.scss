@@ -66,7 +66,7 @@
       cursor: pointer;
 
       &:hover {
-        color: base.$accent_color;
+        color: base.$primary_color;
       }
     }
 
@@ -123,7 +123,7 @@
 
     &:hover,
     &:hover > span {
-      color: rgba($color: base.$accent_color, $alpha: 0.7);
+      color: rgba($color: base.$primary_color, $alpha: 0.7);
     }
   }
 
@@ -205,7 +205,7 @@
 
     &:hover,
     &:hover > span {
-      color: rgba($color: base.$accent_color, $alpha: 0.7);
+      color: rgba($color: base.$primary_color, $alpha: 0.7);
     }
   }
 

@@ -1,9 +1,10 @@
-$primary_color: #fc6736;
-$accent_color: #65b741;
+$logo_color: #fc6736;
+$primary_color: #65b741;
 $neutral_color: #6d6363;
 $neutral_color2: #f2f1eb;
 $neutral_color3: #302a2a;
 $neutral_color4: #534f50;
+$neutral_color5: #ffffff;
 
 $error_color: #b00020;
 
@@ -32,8 +33,8 @@ $regular: 400;
   font-size: 0.875rem;
   font-weight: $medium;
   color: $neutral_color2;
-  background-color: $accent_color;
-  border: 1px solid $accent_color;
+  background-color: $primary_color;
+  border: 1px solid $primary_color;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease;
@@ -41,7 +42,7 @@ $regular: 400;
 
   &:hover,
   &:focus {
-    color: $accent_color;
+    color: $primary_color;
     background-color: $bgcolor1;
   }
 }

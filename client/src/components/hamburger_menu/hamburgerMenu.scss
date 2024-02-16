@@ -1,0 +1,40 @@
+@use "../../styles/base.scss";
+
+.hamburger {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+
+  div {
+    width: 32px;
+    height: 3px;
+    background-color: base.$neutral_color;
+    transition: transform 0.3s ease 0.2s, scale 0.3s ease;
+  }
+  .middle {
+    transform-origin: left;
+  }
+}
+
+.open-menu {
+  .top {
+    background-color: base.$primary_color;
+    transform: rotate(45deg) translate(6px, 5px);
+  }
+  .middle {
+    scale: 0 1;
+  }
+  .bottom {
+    background-color: base.$primary_color;
+    transform: rotate(-45deg) translate(6px, -5px);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .hamburger {
+    display: none;
+  }
+}

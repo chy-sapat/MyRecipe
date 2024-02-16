@@ -1,0 +1,40 @@
+@use "./base.scss";
+
+.notification-panel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  padding-block: 1rem;
+  background-color: base.$neutral_color5;
+  z-index: 19;
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+  display: flex;
+  flex-direction: column;
+
+  .heading {
+    font-size: 1.5rem;
+    font-weight: base.$bold;
+    color: base.$neutral_color3;
+    text-align: center;
+  }
+}
+
+.open-notification {
+  transform: translateX(0%);
+}
+
+.empty-notification {
+  width: 100%;
+  flex-grow: 1;
+  display: grid;
+  place-content: center;
+}
+
+@media screen and (min-width: 900px) {
+  .notification-panel {
+    width: 25%;
+    border: 1px solid base.$neutral_color;
+  }
+}

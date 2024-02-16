@@ -1,7 +1,67 @@
 @use "./base.scss";
 
-nav {
-  width: fit-content;
-  padding: 1rem 2rem;
-  background-color: base.$neutral_color2;
+.layout-container {
+  nav {
+    width: 100%;
+    height: 100%;
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    background-color: base.$neutral_color5;
+    box-shadow: 0px 2px 5px base.$neutral_color;
+    position: absolute;
+    transform-origin: left;
+    transition: transform 0.5s ease;
+    z-index: 20;
+
+    button {
+      @include base.buttons-tmplate;
+      margin-top: 1rem;
+      padding-inline: 2rem;
+    }
+  }
+
+  .open-nav {
+    transform: translateX(0);
+  }
+
+  .close-nav {
+    transform: translateX(-100%);
+  }
+
+  .nav-links {
+    width: 100%;
+    margin-top: 1rem;
+    li {
+      width: 100%;
+    }
+
+    .nav-link {
+      display: inline-block;
+      width: 100%;
+      padding: 1rem 2rem;
+      border-bottom: 2px solid base.$neutral_color;
+      color: base.$neutral_color3;
+      font-weight: base.$medium;
+      text-align: center;
+    }
+
+    .active {
+      color: base.$primary_color;
+      border-color: base.$primary_color;
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .layout-container {
+    .close-nav,
+    .open-nav {
+      flex: 1;
+      position: relative;
+      transform: translateX(0%);
+    }
+  }
 }
