@@ -1,8 +1,10 @@
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 import Logo from "../../components/logo";
 import { BiShow, BiHide } from "react-icons/bi";
 import "../../styles/login.scss";
-import { useRef, useState, useEffect } from "react";
 import Spinner from "../../components/loadingSpinner";
 
 const Login = () => {
@@ -14,10 +16,7 @@ const Login = () => {
   const [passwordFieldType, setPasswordFieldType] = useState("password");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const data = {
-    email: "sapat@test.com",
-    password: "kathFord@0123",
-  };
+  const [cookie, setCookie] = useCookies("access_token");
 
   const togglePasswordVisibility = () => {
     if (passwordFieldType == "password") {
@@ -28,7 +27,7 @@ const Login = () => {
     setPasswordVisibility(!passwordVisiblity);
   };
 
-  const login = (e) => {
+  const login = async (e) => {
     e.preventDefault();
     setLoading(true);
     if (emailError) {
@@ -37,20 +36,25 @@ const Login = () => {
     if (passwordError) {
       setPasswordError(!passwordError);
     }
-    setTimeout(() => {
-      if (email.current == data.email) {
-        if (password.current == data.password) {
-          console.log("Logged In");
-          navigate("/", { replace: true });
-        } else {
-          setPasswordError(!passwordError);
-          console.log(`Password Error: ${passwordError}`);
-        }
-      } else {
-        setEmailError(!emailError);
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email: email.current,
+        password: password.current,
+      });
+      setCookie("access_token", response.data.token, {
+        sameSite: "strict",
+      });
+      window.localStorage.setItem("userId", response.data.userId);
+      setLoading(false);
+      navigate("/", { replace: true });
+    } catch (err) {
+      if (err.response.status == 404) {
+        setEmailError(true);
+      } else if (err.response.status == 403) {
+        setPasswordError(true);
       }
       setLoading(false);
-    }, 3000);
+    }
   };
 
   return (

@@ -5,6 +5,38 @@ import { UserModel } from "../model/User.js";
 
 const router = express.Router();
 
+router.post("/register", async (req, res) => {
+  const { name, username, description, email, password } = req.body;
+
+  const user = await UserModel.findOne({ username });
+  if (user) {
+    return res.status(403).json({ message: "Username already taken" });
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const newUser = new UserModel({
+    name,
+    username,
+    email,
+    password: hashedPassword,
+    description,
+  });
+
+  await newUser.save();
+  res.status(200).json({ message: "Registered Successfully" });
+});
+
+router.get("/verify-email", async (req, res) => {
+  const { email } = req.body;
+  const user = await UserModel.findOne({ email });
+  if (user) {
+    return res.status(403).json({ message: "Email already registered" });
+  }
+  res.status(200);
+});
+
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email });

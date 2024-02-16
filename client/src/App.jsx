@@ -5,7 +5,6 @@ import Login from "./pages/Auth/login";
 import Register from "./pages/Auth/register";
 import Spinner from "./components/loadingSpinner";
 import Layout from "./pages/Home/Layout";
-import { useEffect } from "react";
 function App() {
   return (
     <>
