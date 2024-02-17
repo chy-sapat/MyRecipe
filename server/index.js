@@ -11,7 +11,7 @@ import { ProfileImageUpload } from "./controller/profilePicture.js";
 
 //Config
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = __filename;
+const __dirname = path.dirname(__filename);
 const port = process.env.PORT || 5000;
 const app = express();
 

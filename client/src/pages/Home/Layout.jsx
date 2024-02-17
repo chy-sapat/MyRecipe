@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 import HeaderBar from "@components/Heading_Bar/heading";
 import Nav from "@components/NavBar/Nav";
@@ -9,6 +10,7 @@ import "@styles/layout.scss";
 import Feed from "./feed";
 import NotificationPanel from "@components/notification_panel/notificationPanel";
 import { login } from "@features/signedInSlice";
+import { useGetUserId } from "@hooks/GetUserId";
 
 const Layout = () => {
   const [navStatus, setNavStatus] = useState("close");
@@ -17,6 +19,18 @@ const Layout = () => {
   const signedIn = useSelector((state) => state.signedIn.value);
   const dispatch = useDispatch();
   const location = useLocation();
+  const userId = useGetUserId();
+
+  const fetchuserData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/auth/fetch-user-data/${userId}`
+      );
+      window.localStorage.setItem("user_detail", JSON.stringify(response.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   //Close Sidebar when location is changed
   useEffect(() => {
@@ -27,6 +41,7 @@ const Layout = () => {
     if (cookie.access_token) {
       !signedIn && dispatch(login());
     }
+    fetchuserData();
   }, [dispatch]);
   return (
     <>

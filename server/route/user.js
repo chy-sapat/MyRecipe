@@ -51,4 +51,18 @@ router.post("/login", async (req, res) => {
   res.status(200).json({ token, userId: user._id });
 });
 
+router.get("/fetch-user-data/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const user = await UserModel.findById(userId);
+  if (user) {
+    return res.status(200).json({
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      image: user.picturePath,
+    });
+  }
+  res.status(404).json({ message: "User not found" });
+});
+
 export { router as UserRouter };

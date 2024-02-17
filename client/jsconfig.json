@@ -4,7 +4,9 @@
         "paths": {
             "@components/*" : ["components/*"],
             "@styles/*": ["styles/*"],
-            "@features/*": ["features/*"]
+            "@features/*": ["features/*"],
+            "@assets/*": ["assets/*"],
+            "@hooks/*": ["hooks/*"]
         },
     },
     "include": ["src"],

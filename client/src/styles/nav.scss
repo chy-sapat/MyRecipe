@@ -4,11 +4,10 @@
   nav {
     width: 100%;
     height: 100%;
-    padding-block: 1rem;
+    padding-block: 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
     background-color: base.$neutral_color5;
     box-shadow: 0px 2px 5px base.$neutral_color;
     position: absolute;
@@ -31,6 +30,30 @@
     transform: translateX(-100%);
   }
 
+  .user-profile-link {
+    width: 100%;
+    padding: 1rem;
+    .profile-picture {
+      width: 100px;
+      margin-inline: auto;
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+    .user-name {
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: base.$medium;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba($color: base.$primary_color, $alpha: 0.7);
+      }
+    }
+  }
+
   .nav-links {
     width: 100%;
     margin-top: 1rem;
@@ -42,15 +65,72 @@
       display: inline-block;
       width: 100%;
       padding: 1rem 2rem;
-      border-bottom: 2px solid base.$neutral_color;
+      border-bottom: 1px solid base.$neutral_color;
       color: base.$neutral_color3;
-      font-weight: base.$medium;
-      text-align: center;
+      font-weight: base.$regular;
+      // text-align: center;
+
+      &:hover {
+        color: rgba($color: base.$primary_color, $alpha: 0.7);
+        border-color: rgba($color: base.$primary_color, $alpha: 0.7);
+      }
     }
 
     .active {
+      font-weight: base.$medium;
       color: base.$primary_color;
       border-color: base.$primary_color;
+      border-left: 5px solid base.$primary_color;
+    }
+  }
+
+  .socials-links-icons {
+    width: 100%;
+    margin-top: auto;
+    display: flex;
+    justify-content: space-evenly;
+    div {
+      width: fit-content;
+
+      a {
+        color: base.$neutral_color3;
+      }
+    }
+
+    .facebook-icon {
+      a:hover {
+        color: #1877f2;
+      }
+    }
+
+    .instagram-icon {
+      a:hover {
+        color: #c32aa3;
+      }
+    }
+
+    .x-icon {
+      a:hover {
+        color: #000000;
+      }
+    }
+  }
+
+  .sidebar-bottom-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    span {
+      font-size: 0.75rem;
+      color: base.$neutral_color;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba($color: base.$neutral_color, $alpha: 0.7);
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -59,8 +139,10 @@
   .layout-container {
     .close-nav,
     .open-nav {
-      flex: 1;
-      position: relative;
+      width: 20%;
+      min-width: 250px;
+      position: static;
+      flex-shrink: 0;
       transform: translateX(0%);
     }
   }
