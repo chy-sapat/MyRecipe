@@ -1,22 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
+import { useSelector, useDispatch } from "react-redux";
 
 import { BiShow, BiHide, BiArrowBack } from "react-icons/bi";
 import Logo from "../../components/logo";
+import { setDetails } from "@features/userDetailsSlice";
 import "../../styles/register.scss";
-const Register = ({ activeForm, setActiveForm }) => {
+const Register = () => {
   const [activePage, setActivePage] = useState("first");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const password = useRef("");
   const [emailValidation, setEmailValidation] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const nextPage = () => {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-    console.log(formData);
+    dispatch(setDetails({ email, password: password.current }));
+    navigate("/create-profile");
   };
 
   return (
@@ -53,7 +54,7 @@ const Register = ({ activeForm, setActiveForm }) => {
         )}
         {activePage == "second" && (
           <PageTwo
-            setPassword={setPassword}
+            passwordRef={password}
             setActivePage={setActivePage}
             nextPage={nextPage}
           />
@@ -202,7 +203,7 @@ const EmailVerificationModal = ({
 };
 
 //Password
-const PageTwo = ({ setPassword, setActivePage, nextPage }) => {
+const PageTwo = ({ passwordRef, setActivePage, nextPage }) => {
   const password = [useRef(""), useRef("")];
   const [passwordStatus, setPasswordStatus] = useState("");
   const [passwordMatch, setPasswordMatch] = useState("");
@@ -266,12 +267,11 @@ const PageTwo = ({ setPassword, setActivePage, nextPage }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (passwordStatus == "valid" && passwordMatch == "valid") {
-      setPassword(password[0].current);
+      console.log(password[0].current);
+      passwordRef.current = password[0].current;
       nextPage();
     }
   };
-
-  const next = () => {};
   return (
     <>
       <header>
@@ -339,7 +339,6 @@ const PageTwo = ({ setPassword, setActivePage, nextPage }) => {
             setActivePage("first");
           }}
         >
-          <BiArrowBack size="24px" />
           <span>Back</span>
         </div>
       </form>

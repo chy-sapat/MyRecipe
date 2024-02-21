@@ -6,8 +6,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 
-import { UserRouter } from "./route/user.js";
+import { UserRouter } from "./routes/user.js";
 import { ProfileImageUpload } from "./controller/profilePicture.js";
+import { PostUpload } from "./controller/posts.js";
+import { RecipeRouter } from "./routes/post.js";
 
 //Config
 const __filename = fileURLToPath(import.meta.url);
@@ -22,7 +24,7 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 //File storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cd(null, "public/assets");
+    cb(null, "public/assets");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
@@ -32,9 +34,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 //Route with file
-app.use("/uploads/profile-image", upload.single("image"), ProfileImageUpload);
+app.post("/uploads/profile-image", upload.single("image"), ProfileImageUpload);
+app.post("/recipe/post", upload.single("image"), PostUpload);
 //Routes without files
 app.use("/auth", UserRouter);
+app.use("/recipe", RecipeRouter);
 
 mongoose
   .connect(process.env.DB_URI)

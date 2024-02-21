@@ -5,6 +5,9 @@ import Login from "./pages/Auth/login";
 import Register from "./pages/Auth/register";
 import Spinner from "./components/loadingSpinner";
 import Layout from "./pages/Home/Layout";
+import CreateAccountForm from "pages/Auth/form";
+import CreatePreference from "pages/Auth/preference";
+import ProfileImgUpload from "pages/Auth/profileImgUpload";
 function App() {
   return (
     <>
@@ -16,6 +19,15 @@ function App() {
               <Route index element={<Login />} />
               <Route path="signup" element={<Register />} />
             </Route>
+            <Route path="/create-profile">
+              <Route index element={<CreateAccountForm />} />
+              <Route
+                path="upload-profile-image"
+                element={<ProfileImgUpload />}
+              />
+              <Route path="preference" element={<CreatePreference />} />
+            </Route>
+            {/* <Route path="*" element={<h1>Nothing to see here!</h1>} /> */}
           </Routes>
         </div>
       </Router>

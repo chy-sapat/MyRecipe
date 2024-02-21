@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import defaultProfileImg from "@assets/defaultprofile.jpg";
 //icons
 import {
   FaFacebook,
@@ -11,22 +10,23 @@ import {
 } from "react-icons/fa6";
 
 import { logout } from "@features/signedInSlice";
-import "../../styles/nav.scss";
-import { useGetUserDetail } from "@hooks/GetUserDetails";
+import "@styles/nav.scss";
+import { useGetUserId } from "@hooks/GetUserId";
+import { removeDetails } from "@features/userDetailsSlice";
 
 const Nav = ({ navStatus, setNavStatus }) => {
   const signedIn = useSelector((state) => state.signedIn.value);
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const userDetails = useSelector((state) => state.userDetail.value);
   const [cookie, _, removeCookie] = useCookies("access_token");
+  const userId = useGetUserId();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userDetails = useGetUserDetail();
   const handleLogout = () => {
     removeCookie("access_token");
     window.localStorage.removeItem("userId");
-    window.localStorage.removeItem("user-detail");
     setNavStatus("close");
     dispatch(logout());
+    dispatch(removeDetails());
   };
   return (
     <>
@@ -36,7 +36,7 @@ const Nav = ({ navStatus, setNavStatus }) => {
         ) : (
           <section className="user-profile-link">
             <section className="profile-picture">
-              <img src={`http://localhost:3000/assets/default.jpg`} />
+              <img src={`http://localhost:3000/assets/${userDetails.image}`} />
             </section>
             <h3 className="user-name">{userDetails.name}</h3>
           </section>
@@ -59,11 +59,11 @@ const Nav = ({ navStatus, setNavStatus }) => {
               Trending
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/saved-recipe" className="nav-link">
               Meal Planner
             </NavLink>
-          </li>
+          </li> */}
         </ul>
         {signedIn && (
           <button className="logout-btn" onClick={handleLogout}>

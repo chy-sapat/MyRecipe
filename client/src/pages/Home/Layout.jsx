@@ -10,6 +10,7 @@ import "@styles/layout.scss";
 import Feed from "./feed";
 import NotificationPanel from "@components/notification_panel/notificationPanel";
 import { login } from "@features/signedInSlice";
+import { setDetails } from "@features/userDetailsSlice";
 import { useGetUserId } from "@hooks/GetUserId";
 
 const Layout = () => {
@@ -17,6 +18,7 @@ const Layout = () => {
   const [notificationPanelOpen, setNotificationPanelOpen] = useState("close");
   const [cookie, _] = useCookies("access_token");
   const signedIn = useSelector((state) => state.signedIn.value);
+  const userDetails = useSelector((state) => state.userDetail.value);
   const dispatch = useDispatch();
   const location = useLocation();
   const userId = useGetUserId();
@@ -26,7 +28,7 @@ const Layout = () => {
       const response = await axios.get(
         `http://localhost:3000/auth/fetch-user-data/${userId}`
       );
-      window.localStorage.setItem("user_detail", JSON.stringify(response.data));
+      dispatch(setDetails(response.data));
     } catch (err) {
       console.log(err);
     }
@@ -40,8 +42,8 @@ const Layout = () => {
   useEffect(() => {
     if (cookie.access_token) {
       !signedIn && dispatch(login());
+      fetchuserData();
     }
-    fetchuserData();
   }, [dispatch]);
   return (
     <>
@@ -63,7 +65,7 @@ const Layout = () => {
               />
               <Route
                 path="/saved-recipe"
-                element={<h1>This section shows all the saved recipes</h1>}
+                element={<h1>This section is for meal planning</h1>}
               />
             </Routes>
           </section>

@@ -1,7 +1,7 @@
 import React from "react";
-import Logo from "../components/logo";
-import "../styles/preference.scss";
-const Preference = () => {
+import Logo from "@components/logo";
+import "@styles/preference.scss";
+const CreatePreference = () => {
   return (
     <div>
       <section className="prefer-container">
@@ -112,4 +112,4 @@ const Preference = () => {
   );
 };
 
-export default Preference;
+export default CreatePreference;
