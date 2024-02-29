@@ -54,7 +54,7 @@ const Feed = () => {
                   By <a href="#">{post.username}</a>
                 </p>
                 <p className="post-description">{post.description}</p>
-                <section className="post-card-information">
+                {/* <section className="post-card-information">
                   <section className="ingredients-no">
                     <span className="info-title">Ingredients</span>
                     <span className="value">{post.ingredients}</span>
@@ -67,7 +67,7 @@ const Feed = () => {
                     <span className="info-title">Skill</span>
                     <span className="value">{post.skill_level}</span>
                   </section>
-                </section>
+                </section> */}
               </section>
             );
           })}

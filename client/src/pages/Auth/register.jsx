@@ -319,17 +319,6 @@ const PageTwo = ({ passwordRef, setActivePage, nextPage }) => {
             onChange={(e) => matchPassword(e)}
             required
           />
-          <div
-            className="show-hide-icon"
-            onClick={togglePasswordVisibility}
-            title="show/hide password"
-          >
-            {passwordVisiblity ? (
-              <BiHide size="22px" />
-            ) : (
-              <BiShow size="22px" />
-            )}
-          </div>
           {passwordMatch == "invalid" && <p>Password does not match.</p>}
         </section>
         <button className="signup-button">CREATE PASSWORD</button>

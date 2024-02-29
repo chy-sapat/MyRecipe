@@ -13,6 +13,7 @@
     height: 3px;
     background-color: base.$neutral_color;
     transition: transform 0.3s ease 0.2s, scale 0.3s ease;
+    border-radius: 5px;
   }
   .middle {
     transform-origin: left;

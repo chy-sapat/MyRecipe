@@ -42,7 +42,8 @@ const Login = () => {
         password: password.current,
       });
       setCookie("access_token", response.data.token, {
-        sameSite: "strict",
+        sameSite: "None",
+        secure: true,
       });
       window.localStorage.setItem("userId", response.data.userId);
       setLoading(false);
@@ -52,6 +53,8 @@ const Login = () => {
         setEmailError(true);
       } else if (err.response.status == 403) {
         setPasswordError(true);
+      } else {
+        console.log("Something is wrong. Please Try again later.");
       }
       setLoading(false);
     }

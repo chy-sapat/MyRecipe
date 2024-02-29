@@ -12,6 +12,7 @@ import NotificationPanel from "@components/notification_panel/notificationPanel"
 import { login } from "@features/signedInSlice";
 import { setDetails } from "@features/userDetailsSlice";
 import { useGetUserId } from "@hooks/GetUserId";
+import CreateRecipe from "@components/Create_Recipe/createRecipe";
 
 const Layout = () => {
   const [navStatus, setNavStatus] = useState("close");
@@ -59,6 +60,7 @@ const Layout = () => {
           <section className="main-body">
             <Routes>
               <Route index element={<Feed />} />
+              <Route path="/create-recipe" element={<CreateRecipe />} />
               <Route
                 path="/top-recipe"
                 element={<h1>This section shows all the top recipes</h1>}

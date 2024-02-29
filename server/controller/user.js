@@ -9,6 +9,8 @@ const FetchUserData = async (req, res) => {
       username: user.username,
       email: user.email,
       image: user.picturePath,
+      followers: user.followers,
+      following: user.followed,
     });
   }
   res.status(404).json({ message: "User not found" });

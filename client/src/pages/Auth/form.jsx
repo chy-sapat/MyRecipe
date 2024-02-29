@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "@components/logo";
 import "@styles/form.scss";
-import defaultPic from "@assets/defaultprofile.jpg";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { removeDetails } from "@features/userDetailsSlice";
@@ -28,12 +27,14 @@ const CreateAccountForm = () => {
       });
       if (response.status == 200) {
         const res = await axios.post("http://localhost:3000/auth/login", {
-          email: email.current,
-          password: password.current,
+          email: userDetails.email,
+          password: userDetails.password,
         });
         setCookie("access_token", res.data.token, {
-          sameSite: "strict",
+          sameSite: "none",
+          secure: true,
         });
+        window.localStorage.setItem(response.data.userId);
         dispatch(removeDetails());
         navigate("/create-profile/upload-profile-image");
       }

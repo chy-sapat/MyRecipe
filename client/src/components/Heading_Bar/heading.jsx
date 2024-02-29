@@ -1,29 +1,30 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Logo from "../logo";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import HamburgerMenu from "../hamburger_menu/hamburgerMenu";
+import { toggleNotificationPanel } from "@features/notificationSlice";
 import "@styles/heading.scss";
 
-const HeaderBar = ({
-  navStatus,
-  setNavStatus,
-  notificationPanelOpen,
-  setNotificationPanelOpen,
-}) => {
+const HeaderBar = ({ navStatus, setNavStatus }) => {
+  const notificationPanel = useSelector(
+    (state) => state.notificationPanel.value
+  );
+  const dispatch = useDispatch();
   const toggleNavigation = () => {
     if (navStatus == "open") {
       setNavStatus("close");
     } else {
       setNavStatus("open");
-      setNotificationPanelOpen("close");
+      dispatch(toggleNotificationPanel("close"));
     }
   };
 
   const toggleNotification = () => {
-    if (notificationPanelOpen == "open") {
-      setNotificationPanelOpen("close");
+    if (notificationPanel == "open") {
+      dispatch(toggleNotificationPanel("close"));
     } else {
-      setNotificationPanelOpen("open");
+      dispatch(toggleNotificationPanel("open"));
       setNavStatus("close");
     }
   };
@@ -33,7 +34,7 @@ const HeaderBar = ({
         <HamburgerMenu state={navStatus} toggle={toggleNavigation} />
         <Logo />
         <div
-          className={`notification-icon ${notificationPanelOpen}-notification`}
+          className={`notification-icon ${notificationPanel}-notification`}
           onClick={toggleNotification}
         >
           <IoIosNotificationsOutline size="35px" />

@@ -8,17 +8,28 @@ import {
   FaSquareInstagram,
   FaSquareXTwitter,
 } from "react-icons/fa6";
+import {
+  IoCreateOutline,
+  IoAdd,
+  IoNotificationsOutline,
+} from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
 
-import { logout } from "@features/signedInSlice";
+import Logo from "@components/logo";
 import "@styles/nav.scss";
 import { useGetUserId } from "@hooks/GetUserId";
+import { logout } from "@features/signedInSlice";
 import { removeDetails } from "@features/userDetailsSlice";
+import HeaderBar from "@components/Heading_Bar/heading";
+import { toggleNotificationPanel } from "@features/notificationSlice";
 
 const Nav = ({ navStatus, setNavStatus }) => {
   const signedIn = useSelector((state) => state.signedIn.value);
   const userDetails = useSelector((state) => state.userDetail.value);
+  const notificationPanel = useSelector(
+    (state) => state.notificationPanel.value
+  );
   const [cookie, _, removeCookie] = useCookies("access_token");
-  const userId = useGetUserId();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -27,72 +38,111 @@ const Nav = ({ navStatus, setNavStatus }) => {
     setNavStatus("close");
     dispatch(logout());
     dispatch(removeDetails());
+    navigate("/", { replace: true });
+  };
+  const toggleNotification = () => {
+    if (notificationPanel == "open") {
+      dispatch(toggleNotificationPanel("close"));
+    } else {
+      dispatch(toggleNotificationPanel("open"));
+    }
   };
   return (
     <>
       <nav className={`${navStatus}-nav`}>
-        {!signedIn ? (
-          <button onClick={() => navigate("/auth")}>Sign In / Sign Up</button>
-        ) : (
-          <section className="user-profile-link">
-            <section className="profile-picture">
-              <img src={`http://localhost:3000/assets/${userDetails.image}`} />
+        <Logo />
+        <section className="nav-user-profile">
+          {!signedIn ? (
+            <button
+              className="signup-signin-btn"
+              onClick={() => navigate("/auth")}
+            >
+              Sign In / Sign Up
+            </button>
+          ) : (
+            <section className="user-profile-links">
+              <section className="profile-picture">
+                <img
+                  src={`http://localhost:3000/assets/${userDetails.image}`}
+                />
+              </section>
+              <section className="profile-menu">
+                <h3 className="user-name">{userDetails.name}</h3>
+                {/* <section className="followers">
+                  <section className="count">
+                    <span>{userDetails.followers.length}</span>
+                    <span>Followers</span>
+                  </section>
+                  <section className="count">
+                    <span>{userDetails.following.length}</span>
+                    <span>Following</span>
+                  </section>
+                </section> */}
+                <ul className="profile-menu-links">
+                  <li>
+                    <NavLink to="/create-recipe" className="profile-menu-link">
+                      <div className="icon">
+                        <IoCreateOutline size="20px" />
+                      </div>
+                      <span>New Recipe</span>
+                    </NavLink>
+                  </li>
+                  <li
+                    className="profile-menu-link notification-link"
+                    onClick={toggleNotification}
+                  >
+                    <div className="icon">
+                      <IoNotificationsOutline size="20px" />
+                    </div>
+                    <span>Notification</span>
+                  </li>
+                  <li className="profile-menu-link" onClick={handleLogout}>
+                    <div className="icon">
+                      <CiLogout size="20px" />
+                    </div>
+                    <span>Logout</span>
+                  </li>
+                </ul>
+              </section>
             </section>
-            <h3 className="user-name">{userDetails.name}</h3>
-          </section>
-        )}
+          )}
+        </section>
         <ul className="nav-links">
           <li>
             <NavLink to="/" className="nav-link">
+              Recipes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/explore" className="nav-link">
               Explore
             </NavLink>
           </li>
-          {signedIn && (
-            <li>
-              <NavLink to="/create-recipe" className="nav-link">
-                Create Recipe
-              </NavLink>
-            </li>
-          )}
           <li>
             <NavLink to="/top-recipe" className="nav-link">
-              Trending
+              Top Recipes
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink to="/saved-recipe" className="nav-link">
-              Meal Planner
-            </NavLink>
-          </li> */}
+          {signedIn && (
+            <>
+              <li>
+                <NavLink to="/meal-planning" className="nav-link">
+                  Meal Planning
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/saved-recipe" className="nav-link">
+                  Saved Recipe
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/setting" className="nav-link">
+                  Setting
+                </NavLink>
+              </li>
+            </>
+          )}
         </ul>
-        {signedIn && (
-          <button className="logout-btn" onClick={handleLogout}>
-            Log Out
-          </button>
-        )}
-        <section className="socials-links-icons">
-          <div className="facebook-icon">
-            <Link to="https://www.facebook.com/neha.maharjan.3114">
-              <FaFacebook size="30px" />
-            </Link>
-          </div>
-          <div className="instagram-icon">
-            <Link to="https://www.instagram.com/ne.hahahen?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
-              <FaSquareInstagram size="30px" />
-            </Link>
-          </div>
-          <div className="x-icon">
-            <Link to="#">
-              <FaSquareXTwitter size="30px" />
-            </Link>
-          </div>
-        </section>
-        <section className="sidebar-bottom-links">
-          <span>About us</span>
-          <span>Contact us</span>
-          <span>Terms and Conditions</span>
-          <span>Privacy Policy</span>
-        </section>
       </nav>
     </>
   );
