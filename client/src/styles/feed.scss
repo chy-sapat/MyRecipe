@@ -36,11 +36,13 @@
 }
 
 .posts {
+  width: 100%;
   margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  // display: flex;
+  // flex-wrap: wrap;
+  // gap: 1rem;
 
+  //Post card starts here
   .post-card {
     padding: 0.5rem;
     // border: 1px solid base.$neutral_color;
@@ -48,9 +50,6 @@
     // box-shadow: 2px 2px 5px 1px base.$neutral_color3;
     color: base.$neutral_color;
     .post-heading {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
       margin-block: 1rem;
       position: relative;
     }
@@ -80,8 +79,11 @@
       }
     }
     .option-icon {
+      position: absolute;
       z-index: 1;
       cursor: pointer;
+      top: 0rem;
+      right: 0rem;
 
       &:hover {
         color: rgba($color: base.$primary_color, $alpha: 0.7);
@@ -155,8 +157,7 @@
     }
     .post-images {
       width: 100%;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      border-radius: 5px;
 
       img {
         width: 100%;
@@ -185,7 +186,15 @@
       width: 40%;
     }
     .post-card {
-      width: max(410px, 30%);
+      width: 100%;
+      display: flex;
+      gap: 1rem;
+      .post-images {
+        flex: 1;
+      }
+      .post-body {
+        flex: 2;
+      }
     }
     .post-title {
       height: 40px;

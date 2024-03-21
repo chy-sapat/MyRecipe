@@ -35,7 +35,9 @@ const HeaderBar = ({ navStatus, setNavStatus }) => {
         <Logo />
         <div
           className={`notification-icon ${notificationPanel}-notification`}
+          onBlur={() => dispatch(toggleNotificationPanel("close"))}
           onClick={toggleNotification}
+          tabIndex="0"
         >
           <IoIosNotificationsOutline size="35px" />
         </div>

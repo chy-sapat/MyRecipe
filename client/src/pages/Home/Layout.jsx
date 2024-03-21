@@ -13,6 +13,7 @@ import { login } from "@features/signedInSlice";
 import { setDetails } from "@features/userDetailsSlice";
 import { useGetUserId } from "@hooks/GetUserId";
 import CreateRecipe from "@components/Create_Recipe/createRecipe";
+import Popup from "@components/popup/popup";
 
 const Layout = () => {
   const [navStatus, setNavStatus] = useState("close");
@@ -58,6 +59,7 @@ const Layout = () => {
         <main>
           <Nav navStatus={navStatus} setNavStatus={setNavStatus} />
           <section className="main-body">
+            <Popup />
             <Routes>
               <Route index element={<Feed />} />
               <Route path="/create-recipe" element={<CreateRecipe />} />

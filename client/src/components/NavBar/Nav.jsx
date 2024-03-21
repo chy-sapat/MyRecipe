@@ -84,12 +84,14 @@ const Nav = ({ navStatus, setNavStatus }) => {
                       <div className="icon">
                         <IoCreateOutline size="20px" />
                       </div>
-                      <span>New Recipe</span>
+                      <span>Create</span>
                     </NavLink>
                   </li>
                   <li
                     className="profile-menu-link notification-link"
                     onClick={toggleNotification}
+                    onBlur={() => dispatch(toggleNotificationPanel("close"))}
+                    tabIndex="0"
                   >
                     <div className="icon">
                       <IoNotificationsOutline size="20px" />

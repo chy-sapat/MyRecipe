@@ -1,0 +1,29 @@
+@use "./base.scss";
+
+.popup {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  padding: 0.75rem 1rem;
+  border-radius: 5px;
+  background-color: rgba($color: base.$neutral_color5, $alpha: 0.9);
+  color: base.$neutral_color3;
+  box-shadow: 2px 2px 10px 0px base.$neutral_color,
+    -2px 2px 10px 0px base.$neutral_color;
+  font-size: 1.25rem;
+  font-weight: base.$medium;
+  z-index: 1;
+  transition: transform 0.3s ease;
+
+  .cross-icon {
+    cursor: pointer;
+  }
+}
+
+.popup-active {
+  transform: translateX(-50%) scaleY(1);
+}

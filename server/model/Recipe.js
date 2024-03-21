@@ -2,12 +2,18 @@ import mongoose from "mongoose";
 
 const RecipeSchema = new mongoose.Schema(
   {
-    userid: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     title: { type: String, required: true },
-    category: [{ type: String }],
+    tags: [{ type: String }],
     description: { type: String },
     ingredients: [{ type: String, required: true }],
     steps: [{ type: String, required: true }],
+    cookingTime: {
+      cookingHr: { type: Number },
+      cookingMin: { type: Number },
+    },
+    skill: { type: String },
+    serving: { type: Number },
     attachment: [{ type: String }],
     likes: { type: Number, default: 0 },
     likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],

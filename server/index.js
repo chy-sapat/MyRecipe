@@ -35,7 +35,7 @@ const upload = multer({ storage });
 
 //Route with file
 app.post("/uploads/profile-image", upload.single("image"), ProfileImageUpload);
-app.post("/recipe/post", upload.single("image"), PostUpload);
+app.post("/recipe/post", upload.single("attachment"), PostUpload);
 //Routes without files
 app.use("/auth", UserRouter);
 app.use("/recipe", RecipeRouter);
