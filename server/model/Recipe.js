@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const RecipeSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     title: { type: String, required: true },
     tags: [{ type: String }],
     description: { type: String },
@@ -17,7 +16,14 @@ const RecipeSchema = new mongoose.Schema(
     attachment: [{ type: String }],
     likes: { type: Number, default: 0 },
     likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
-    comments: { type: Array, default: [] },
+    comments: [
+      {
+        commentedBy: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+        commentDescription: { type: String },
+      },
+    ],
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    username: { type: String },
   },
   { timestamps: true }
 );

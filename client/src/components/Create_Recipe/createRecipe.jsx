@@ -8,6 +8,7 @@ import { RxCross1 } from "react-icons/rx";
 import "@styles/createRecipe.scss";
 import { useGetUserId } from "@hooks/GetUserId";
 import { togglePopUp } from "@features/popUp";
+import { useGetUserDetails } from "@hooks/GetUserDetails";
 
 const CreateRecipe = () => {
   const recipeTitle = useRef("");
@@ -34,6 +35,7 @@ const CreateRecipe = () => {
   const isSignedIn = useSelector((state) => state.signedIn.value);
   const popUp = useSelector((state) => state.popUp.value);
   const userId = useGetUserId();
+  const userDetail = useGetUserDetails();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -146,21 +148,25 @@ const CreateRecipe = () => {
     e.preventDefault();
     const recipe = new FormData();
     recipe.append("userId", userId);
+    recipe.append("username", userDetail.username);
     recipe.append("title", recipeTitle.current);
     recipe.append("tags", recipeTags);
     recipe.append("description", description);
     recipe.append("ingredients", ingredients);
     recipe.append("steps", steps);
-
     recipe.append(
       "cookingTime",
-      `${cookingTime.cookingHr}, ${cookingTime.cookingMin}`
+      options.addCookingTime
+        ? `${cookingTime.cookingHr}, ${cookingTime.cookingMin}`
+        : "0,0"
     );
-    recipe.append("skill", skill.current);
-    recipe.append("serving", serving);
-    recipe.append("attachment", attachment);
-
-    recipe.append("additionalTips", additionalTips);
+    recipe.append("skill", options.addDifficulty ? skill.current : "");
+    recipe.append("serving", options.serving ? serving : 0);
+    recipe.append("attachment", options.addPicture ? attachment : "");
+    recipe.append(
+      "additionalTips",
+      options.addAdditionalTips ? additionalTips : ""
+    );
     try {
       const response = await axios.post(
         "http://localhost:3000/recipe/post",

@@ -34,7 +34,7 @@ const CreateAccountForm = () => {
           sameSite: "none",
           secure: true,
         });
-        window.localStorage.setItem(response.data.userId);
+        window.localStorage.setItem("userId", response.data.userId);
         dispatch(removeDetails());
         navigate("/create-profile/upload-profile-image");
       }

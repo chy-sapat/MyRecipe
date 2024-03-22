@@ -14,6 +14,7 @@ import { setDetails } from "@features/userDetailsSlice";
 import { useGetUserId } from "@hooks/GetUserId";
 import CreateRecipe from "@components/Create_Recipe/createRecipe";
 import Popup from "@components/popup/popup";
+import PostDetails from "@components/Posts/postDetails";
 
 const Layout = () => {
   const [navStatus, setNavStatus] = useState("close");
@@ -71,6 +72,7 @@ const Layout = () => {
                 path="/saved-recipe"
                 element={<h1>This section is for meal planning</h1>}
               />
+              <Route path="/recipe/:id" element={<PostDetails />} />
             </Routes>
           </section>
           <NotificationPanel notificationPanelOpen={notificationPanelOpen} />

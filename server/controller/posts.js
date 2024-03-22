@@ -1,8 +1,9 @@
 import { RecipeModel } from "../model/Recipe.js";
 
-export const PostUpload = async (req, res) => {
+const PostUpload = async (req, res) => {
   const {
     userId,
+    username,
     title,
     tags,
     description,
@@ -17,7 +18,6 @@ export const PostUpload = async (req, res) => {
   const attachment = image;
   console.log(userId);
   const recipe = new RecipeModel({
-    userId,
     title,
     tags: tags?.split(","),
     description,
@@ -30,7 +30,30 @@ export const PostUpload = async (req, res) => {
     skill,
     serving,
     attachment,
+    userId,
+    username,
   });
   await recipe.save();
   res.status(200).json({ message: "Recipie Posted" });
 };
+
+const FetchAllRecipe = async (req, res) => {
+  try {
+    const recipes = await RecipeModel.find({}).sort({ createdAt: -1 });
+    res.status(200).json(recipes);
+  } catch (err) {
+    res.status(500);
+  }
+};
+
+const FetchRecipeData = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const recipe = await RecipeModel.findById(recipeId);
+    res.status(200).json(recipe);
+  } catch (err) {
+    res.status(500);
+  }
+};
+
+export { PostUpload, FetchAllRecipe, FetchRecipeData };

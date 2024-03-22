@@ -11,6 +11,11 @@ const UserSchema = new mongoose.Schema(
     savedRecipe: [{ type: mongoose.Schema.Types.ObjectId, ref: "recipe" }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
     followed: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+    accountStatus: {
+      type: String,
+      enum: ["active", "suspended"],
+      default: "active",
+    },
   },
   { timestamps: true }
 );

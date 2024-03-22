@@ -22,10 +22,11 @@ import { logout } from "@features/signedInSlice";
 import { removeDetails } from "@features/userDetailsSlice";
 import HeaderBar from "@components/Heading_Bar/heading";
 import { toggleNotificationPanel } from "@features/notificationSlice";
+import { useGetUserDetails } from "@hooks/GetUserDetails";
 
 const Nav = ({ navStatus, setNavStatus }) => {
   const signedIn = useSelector((state) => state.signedIn.value);
-  const userDetails = useSelector((state) => state.userDetail.value);
+  const userDetails = useGetUserDetails();
   const notificationPanel = useSelector(
     (state) => state.notificationPanel.value
   );

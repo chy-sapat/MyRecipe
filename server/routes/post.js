@@ -1,13 +1,12 @@
 import express from "express";
 import { RecipeModel } from "../model/Recipe.js";
 import { UserModel } from "../model/User.js";
+import { FetchAllRecipe, FetchRecipeData } from "../controller/posts.js";
 
 const router = express.Router();
 
-router.get("/fetch-all", async (req, res) => {
-  const recipes = await RecipeModel.find({}).sort({ createdAt: -1 });
-  res.status(200).json(recipes);
-});
+router.get("/fetch-all", FetchAllRecipe);
+router.get("/fetch-recipe/:id", FetchRecipeData);
 
 router.put("/save-recipe", async (req, res) => {
   const { userId, recipeId } = req.body;
