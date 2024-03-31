@@ -1,42 +1,38 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import postImg from "../../assets/post_img.jpeg";
+import "@styles/postCard.scss";
+import StarDisplay from "@components/star_rating/starDisplay";
 
 const PostCard = ({ postInfo }) => {
-  const [isPostOptionOpen, setIsPostOptionOpen] = useState(false);
-  const openPostOptionMenu = (index) => {
-    setIsPostOptionOpen(!isPostOptionOpen);
-  };
   return (
     <>
       <section className="post-images">
-        <img
-          src={`http://localhost:3000/assets/${postInfo.attachment[0]}`}
-          alt="Post Image"
-        />
         <p className="post-description">{postInfo.description}</p>
+        <Link to={`/recipe/${postInfo._id}`} className="post-title">
+          <img
+            src={`http://localhost:3000/assets/${postInfo.attachment[0]}`}
+            alt="Post Image"
+          />
+        </Link>
       </section>
       <section className="post-body">
         <section className="post-heading">
-          <Link to={`/recipe/${postInfo._id}`} className="post-title">
+          <Link
+            to={`/recipe/${postInfo._id}`}
+            className="post-title"
+            title={postInfo.title}
+          >
             {postInfo.title}
           </Link>
-          {/* <section className="post-tags">
-            {postInfo.tags.map((tag, index) => {
-              return <p className="post-tag">{tag}</p>;
-            })}
-          </section> */}
-          {/* <div className="option-icon" onClick={(e) => openPostOptionMenu()}>
-            <BsThreeDotsVertical size="20px" />
-          </div>
-          <ul className="post-options-menu" aria-expanded={isPostOptionOpen}>
-            <li className="post-option">Report</li>
-          </ul> */}
         </section>
         <p className="post-author">
-          By <a href="#">{postInfo.username}</a>
+          <Link to={`/profile/${postInfo.userId}`}>{postInfo.username}</Link>
         </p>
+        {postInfo.avgRating > 0 && (
+          <section className="recipe-rating">
+            <StarDisplay avgRating={postInfo.avgRating} />
+          </section>
+        )}
       </section>
     </>
   );

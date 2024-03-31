@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import { IoIosSearch } from "react-icons/io";
 import { BiLike, BiSolidLike, BiDislike, BiSolidDislike } from "react-icons/bi";
 import { IoAddSharp } from "react-icons/io5";
 
@@ -11,6 +10,7 @@ import { setAllPosts } from "@features/postsSlice";
 import "../../styles/feed.scss";
 // import posts from "../../dummy_data/posts.json";
 import PostCard from "@components/Posts/postCard";
+import SearchBar from "@components/search/searchBar";
 
 const Feed = () => {
   const posts = useSelector((state) => state.post.value.allPost);
@@ -23,19 +23,12 @@ const Feed = () => {
       dispatch(setAllPosts(response.data));
     };
 
-    if (posts.length == 0) {
-      fetchAllRecipe();
-    }
+    fetchAllRecipe();
   }, []);
   return (
     <>
       <section className="feed-container">
-        {/* <section className="search-bar">
-          <div className="search-icon">
-            <IoIosSearch size="30px" />
-          </div>
-          <input type="text" placeholder="Search" />
-        </section> */}
+        <SearchBar />
         <h2>For You</h2>
         <section className="posts">
           {posts.length > 0 ? (

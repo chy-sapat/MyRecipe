@@ -2,16 +2,11 @@ import { UserModel } from "../model/User.js";
 
 const FetchUserData = async (req, res) => {
   const userId = req.params.userId;
-  const user = await UserModel.findById(userId);
+  const user = await UserModel.findById(userId, {
+    password: 0,
+  });
   if (user) {
-    return res.status(200).json({
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      image: user.picturePath,
-      followers: user.followers,
-      following: user.followed,
-    });
+    return res.status(200).json(user);
   }
   res.status(404).json({ message: "User not found" });
 };

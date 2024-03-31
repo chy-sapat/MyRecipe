@@ -1,0 +1,56 @@
+@use "./base.scss";
+
+.user-profile-container {
+  width: 100%;
+  overflow-y: scroll;
+
+  .user-profile-wrapper {
+    width: min(100%, 800px);
+    padding: 1rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .userprofile-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .userprofile-image {
+      width: 100px;
+      height: 100px;
+
+      img {
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: base.$medium;
+    }
+
+    .userprofile-nav-links {
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
+      padding-block: 1rem;
+    }
+
+    .profile-nav-link {
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+  }
+}

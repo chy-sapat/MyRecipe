@@ -41,12 +41,13 @@ const Login = () => {
         email: email.current,
         password: password.current,
       });
-      setCookie("access_token", response.data.token, {
+      const { token, userId } = response.data;
+      setCookie("access_token", token, {
+        path: "/",
         sameSite: "None",
         secure: true,
       });
-      window.localStorage.setItem("userId", response.data.userId);
-      setLoading(false);
+      window.localStorage.setItem("userId", userId);
       navigate("/", { replace: true });
     } catch (err) {
       if (err.response.status == 404) {

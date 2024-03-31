@@ -54,3 +54,15 @@ $regular: 400;
   border-radius: 25px;
   box-shadow: 2px 2px 5px 0px $neutral_color3;
 }
+
+@mixin star-rating-display {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@mixin tooltip {
+  padding: 0.5rem;
+  background-color: base.$neutral_color3;
+  color: base.$neutral_color5;
+}

@@ -58,13 +58,15 @@
     }
     .profile-menu {
       padding-inline: 0.25rem;
-      color: base.$neutral_color3;
 
       .user-name {
+        display: block;
+        width: 100%;
         margin: 0.75rem auto;
         font-size: 1rem;
         font-weight: base.$medium;
         text-align: center;
+        color: base.$neutral_color3;
         cursor: pointer;
         transition: 0.3s ease;
         user-select: none;

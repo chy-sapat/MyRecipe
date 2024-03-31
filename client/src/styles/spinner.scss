@@ -1,5 +1,21 @@
 @use "base.scss";
 
+.loading-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loading-wrapper {
+    width: fit-content;
+    padding: 1rem;
+  }
+  .loading-icon {
+    width: fit-content;
+    color: base.$neutral_color;
+    animation: loading 1s linear infinite;
+  }
+}
 .spinner {
   width: fit-content;
   margin-inline: auto;
@@ -9,6 +25,10 @@
 @keyframes loading {
   0% {
     transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
   }
 
   100% {

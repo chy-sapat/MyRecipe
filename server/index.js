@@ -40,9 +40,7 @@ app.post("/recipe/post", upload.single("attachment"), PostUpload);
 app.use("/auth", UserRouter);
 app.use("/recipe", RecipeRouter);
 
-mongoose
-  .connect(process.env.DB_URI)
-  .then(() => console.log("Connected to database"));
+mongoose.connect(process.env.DB_URI);
 
 app.listen(port, () => {
   console.log(`Server Started at port: ${port}`);

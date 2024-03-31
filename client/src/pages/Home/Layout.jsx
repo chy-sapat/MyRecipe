@@ -15,6 +15,9 @@ import { useGetUserId } from "@hooks/GetUserId";
 import CreateRecipe from "@components/Create_Recipe/createRecipe";
 import Popup from "@components/popup/popup";
 import PostDetails from "@components/Posts/postDetails";
+import Profile from "./Profile";
+import SearchList from "@components/search/searchList";
+import TopRecipe from "./topRecipe";
 
 const Layout = () => {
   const [navStatus, setNavStatus] = useState("close");
@@ -64,15 +67,10 @@ const Layout = () => {
             <Routes>
               <Route index element={<Feed />} />
               <Route path="/create-recipe" element={<CreateRecipe />} />
-              <Route
-                path="/top-recipe"
-                element={<h1>This section shows all the top recipes</h1>}
-              />
-              <Route
-                path="/saved-recipe"
-                element={<h1>This section is for meal planning</h1>}
-              />
+              <Route path="/top-recipe" element={<TopRecipe />} />
               <Route path="/recipe/:id" element={<PostDetails />} />
+              <Route path="/profile/:userId" element={<Profile />} />
+              <Route path="/search/:keyword" element={<SearchList />} />
             </Routes>
           </section>
           <NotificationPanel notificationPanelOpen={notificationPanelOpen} />

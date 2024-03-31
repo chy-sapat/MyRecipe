@@ -1,0 +1,9 @@
+@use "./base.scss";
+
+.rating-stars {
+  @include base.star-rating-display;
+  padding-block: 0.5rem;
+  .star {
+    color: base.$logo_color;
+  }
+}

@@ -26,15 +26,18 @@ import { useGetUserDetails } from "@hooks/GetUserDetails";
 
 const Nav = ({ navStatus, setNavStatus }) => {
   const signedIn = useSelector((state) => state.signedIn.value);
+  const userId = useGetUserId();
   const userDetails = useGetUserDetails();
   const notificationPanel = useSelector(
     (state) => state.notificationPanel.value
   );
-  const [cookie, _, removeCookie] = useCookies("access_token");
+  const [cookie, setCookie, removeCookie] = useCookies("access_token");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
-    removeCookie("access_token");
+    removeCookie("access_token", {
+      path: "/",
+    });
     window.localStorage.removeItem("userId");
     setNavStatus("close");
     dispatch(logout());
@@ -64,21 +67,13 @@ const Nav = ({ navStatus, setNavStatus }) => {
             <section className="user-profile-links">
               <section className="profile-picture">
                 <img
-                  src={`http://localhost:3000/assets/${userDetails.image}`}
+                  src={`http://localhost:3000/assets/${userDetails.picturePath}`}
                 />
               </section>
               <section className="profile-menu">
-                <h3 className="user-name">{userDetails.name}</h3>
-                {/* <section className="followers">
-                  <section className="count">
-                    <span>{userDetails.followers.length}</span>
-                    <span>Followers</span>
-                  </section>
-                  <section className="count">
-                    <span>{userDetails.following.length}</span>
-                    <span>Following</span>
-                  </section>
-                </section> */}
+                <Link to={`/profile/${userId}`} className="user-name">
+                  {userDetails.name}
+                </Link>
                 <ul className="profile-menu-links">
                   <li>
                     <NavLink to="/create-recipe" className="profile-menu-link">
@@ -116,35 +111,21 @@ const Nav = ({ navStatus, setNavStatus }) => {
               Recipes
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/explore" className="nav-link">
               Explore
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/top-recipe" className="nav-link">
               Top Recipes
             </NavLink>
           </li>
-          {signedIn && (
-            <>
-              <li>
-                <NavLink to="/meal-planning" className="nav-link">
-                  Meal Planning
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/saved-recipe" className="nav-link">
-                  Saved Recipe
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/setting" className="nav-link">
-                  Setting
-                </NavLink>
-              </li>
-            </>
-          )}
+          <li>
+            <NavLink to="/pro-recipe" className="nav-link">
+              Pro Recipe
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </>

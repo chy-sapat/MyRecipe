@@ -1,0 +1,113 @@
+@use "./base.scss";
+
+.posts {
+  width: 100%;
+  margin-top: 1rem;
+  display: inline-grid;
+  grid-template-columns: auto;
+  gap: 1rem;
+  //Post card starts here
+  .post-card {
+    padding: 0.5rem;
+    // border: 1px solid base.$neutral_color;
+    border-radius: 5px;
+    // box-shadow: 2px 2px 5px 1px base.$neutral_color3;
+    color: base.$neutral_color;
+    .post-body {
+      padding-block: 1rem;
+    }
+    .post-title {
+      width: fit-content;
+      font-size: 1rem;
+      font-weight: base.$bold;
+      color: base.$neutral_color3;
+      cursor: pointer;
+
+      &:hover {
+        color: rgba($color: base.$primary_color, $alpha: 0.7);
+      }
+    }
+    .post-author {
+      padding-block: 0.25rem;
+      a {
+        font-weight: base.$medium;
+        color: base.$neutral_color;
+
+        &:hover {
+          color: rgba($color: base.$primary_color, $alpha: 0.7);
+        }
+      }
+    }
+    .post-description {
+      width: 100%;
+      padding: 2rem 0.5rem;
+      position: absolute;
+      bottom: 0;
+      opacity: 0;
+      background: linear-gradient(180deg, transparent, base.$neutral_color3);
+      color: base.$neutral_color5;
+      padding-block: 0.5rem 1rem;
+      font-size: 1rem;
+      user-select: none;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+    }
+    .post-images {
+      width: 100%;
+      border-radius: 5px;
+      position: relative;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 300px;
+        border-radius: inherit;
+        object-fit: cover;
+      }
+
+      &:hover > .post-description {
+        transform: translateY(0%);
+        opacity: 1;
+      }
+    }
+    .post-interaction {
+      display: flex;
+      gap: 1rem;
+      padding: 0.5rem;
+
+      section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .posts {
+    grid-template-columns: 1fr 1fr;
+    // .post-card {
+    //   width: 100%;
+    //   display: flex;
+    //   gap: 1rem;
+    //   .post-images {
+    //     width: 30%;
+    //   }
+    //   .post-body {
+    //     flex: 2;
+    //   }
+    // }
+  }
+  .post-title {
+    height: 40px;
+  }
+  .post-description {
+    height: 72px;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .posts {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

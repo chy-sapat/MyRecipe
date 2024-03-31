@@ -17,8 +17,8 @@ const CreateRecipe = () => {
   const [ingredients, setIngredients] = useState(["", ""]);
   const [steps, setSteps] = useState(["", ""]);
   const [cookingTime, setCookingTime] = useState({
-    cookingMin: 0,
     cookingHr: 0,
+    cookingMin: 0,
   });
   const skill = useRef("");
   const [serving, setServing] = useState(0);
@@ -40,10 +40,10 @@ const CreateRecipe = () => {
   const dispatch = useDispatch();
 
   const handleTags = (e) => {
-    const tags = e.target.value;
-    if (tags[tags.length - 1] == " ") {
-      tags.trim();
-      setRecipeTags([...recipeTags, tags]);
+    const tagInput = e.target.value;
+    if (tagInput[tagInput.length - 1] == " ") {
+      const tag = tagInput.trim();
+      setRecipeTags([...recipeTags, tag]);
       e.target.value = "";
     }
   };
@@ -150,15 +150,15 @@ const CreateRecipe = () => {
     recipe.append("userId", userId);
     recipe.append("username", userDetail.username);
     recipe.append("title", recipeTitle.current);
-    recipe.append("tags", recipeTags);
+    recipe.append("tags", JSON.stringify(recipeTags));
     recipe.append("description", description);
-    recipe.append("ingredients", ingredients);
-    recipe.append("steps", steps);
+    recipe.append("ingredients", JSON.stringify(ingredients));
+    recipe.append("steps", JSON.stringify(steps));
     recipe.append(
       "cookingTime",
       options.addCookingTime
-        ? `${cookingTime.cookingHr}, ${cookingTime.cookingMin}`
-        : "0,0"
+        ? JSON.stringify(cookingTime)
+        : JSON.stringify({ cookingHr: 0, cookingMin: 0 })
     );
     recipe.append("skill", options.addDifficulty ? skill.current : "");
     recipe.append("serving", options.serving ? serving : 0);
@@ -238,16 +238,18 @@ const CreateRecipe = () => {
                 return (
                   <section key={index} className="ingredient">
                     <span className="numbering">{index + 1} . </span>
-                    <input
+                    <textarea
+                      cols="30"
+                      rows="1"
                       type="text"
-                      className="recipe-input recipe-normal-input"
+                      className="recipe-input recipe-normal-input ingredient-input"
                       onChange={(e) => handleIngredientsChange(e, index)}
-                    />
+                    ></textarea>
                     <div
                       className="remove-icon"
                       onClick={(e) => removeIngredients(index, e)}
                     >
-                      <RxCross1 size="15px" />
+                      <RxCross1 size="18px" />
                     </div>
                   </section>
                 );
@@ -262,22 +264,23 @@ const CreateRecipe = () => {
             </section>
           </div>
           <div className="steps-form">
-            <h3 className="label">Instructions</h3>
+            <h3 className="label">Directions</h3>
             <section className="steps">
               {steps.map((step, index) => {
                 return (
                   <section key={index} className="step">
                     <span className="numbering">{index + 1} . </span>
-                    <input
-                      type="text"
-                      className="recipe-input recipe-normal-input"
+                    <textarea
+                      cols="30"
+                      rows="1"
+                      className="recipe-input recipe-normal-input step-input"
                       onChange={(e) => handleStepChange(e, index)}
-                    />
+                    ></textarea>
                     <div
                       className="remove-icon"
                       onClick={(e) => removeStep(index, e)}
                     >
-                      <RxCross1 size="15px" />
+                      <RxCross1 size="18px" />
                     </div>
                   </section>
                 );
@@ -423,8 +426,8 @@ const CreateRecipe = () => {
               <section className="difficulty-wrapper">
                 <label htmlFor="difficulty">Difficulty</label>
                 <select onChange={(e) => (skill.current = e.target.value)}>
-                  <option value="Homecook">Homecook</option>
-                  <option value="Amature">Amature</option>
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermidiate">Intermidiate</option>
                   <option value="Professional">Professional</option>
                 </select>
               </section>
