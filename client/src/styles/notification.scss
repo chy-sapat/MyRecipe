@@ -2,13 +2,16 @@
 
 .notification-panel {
   width: 100%;
-  height: 100%;
+  height: 95%;
   position: absolute;
-  right: 0;
+  top: 50%;
+  right: 0.5rem;
   padding-block: 1rem;
+  border-radius: 5px;
+  box-shadow: -2px 2px 10px 0px base.$neutral_color3;
   background-color: base.$neutral_color5;
   z-index: 19;
-  transform: translateX(100%);
+  transform: translateX(105%) translateY(-50%);
   transition: transform 0.5s ease;
   display: flex;
   flex-direction: column;
@@ -22,7 +25,7 @@
 }
 
 .open-notification {
-  transform: translateX(0%);
+  transform: translateX(0%) translateY(-50%);
 }
 
 .empty-notification {
@@ -35,6 +38,6 @@
 @media screen and (min-width: 900px) {
   .notification-panel {
     width: 25%;
-    border: 1px solid base.$neutral_color;
+    border: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
   }
 }

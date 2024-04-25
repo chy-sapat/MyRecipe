@@ -1,0 +1,42 @@
+@use "./base.scss";
+
+.time-picker-wrapper {
+    width: fit-content;
+    border: 1px solid base.$primary_color;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+
+.time-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    label {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    span {
+        font-size: 1.5rem;
+        user-select: none;
+        color: base.$neutral_color3;
+    }
+
+    .tp-label {
+        font-size: 1rem;
+        color: base.$neutral_color3;
+    }
+
+    input {
+        width: 50px;
+        height: 50px;
+        border: none;
+        padding: auto 1rem;
+        font-size: 1rem;
+        text-align: center;
+        appearance: textfield;
+        outline: none;
+    }
+}

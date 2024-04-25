@@ -9,7 +9,7 @@ import StarDisplay from "@components/star_rating/starDisplay";
 
 const Rating = ({ recipeId, ownerId, ratingData, avgRating, setPostData }) => {
   const rating = useRef(0);
-  const comment = useRef(null);
+  const commentRef = useRef(null);
   const isSignedIn = useSelector((state) => state.signedIn.value);
   const userId = useGetUserId();
   const userDetail = useGetUserDetails();
@@ -42,7 +42,7 @@ const Rating = ({ recipeId, ownerId, ratingData, avgRating, setPostData }) => {
           username: userDetail.name,
           userImage: userDetail.picturePath,
           rating: rating.current,
-          comment: comment.current.value,
+          comment: commentRef.current.value,
           newAvg: (avgRating + rating.current) / (totalRating + 1),
         }
       );
@@ -68,7 +68,6 @@ const Rating = ({ recipeId, ownerId, ratingData, avgRating, setPostData }) => {
             <section className="profile-image">
               <img
                 src={`http://localhost:3000/assets/${userDetail.picturePath}`}
-                alt=""
               />
             </section>
             <section className="rating">
@@ -100,7 +99,7 @@ const Rating = ({ recipeId, ownerId, ratingData, avgRating, setPostData }) => {
                 cols="30"
                 rows="3"
                 placeholder="Write your review here"
-                ref={comment}
+                ref={commentRef}
                 onFocus={activateComment}
               ></textarea>
               {commentActive && (

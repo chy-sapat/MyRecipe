@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import Logo from "../../components/logo";
@@ -8,28 +8,26 @@ import "../../styles/login.scss";
 import Spinner from "../../components/loadingSpinner";
 
 const Login = () => {
-  const email = useRef("");
-  const password = useRef("");
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordVisiblity, setPasswordVisibility] = useState(false);
-  const [passwordFieldType, setPasswordFieldType] = useState("password");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [cookie, setCookie] = useCookies("access_token");
 
   const togglePasswordVisibility = () => {
-    if (passwordFieldType == "password") {
-      setPasswordFieldType("text");
+    if (!passwordVisiblity) {
+      passwordRef.current.type = "text";
     } else {
-      setPasswordFieldType("password");
+      passwordRef.current.type = "password";
     }
     setPasswordVisibility(!passwordVisiblity);
   };
 
   const login = async (e) => {
     e.preventDefault();
-    setLoading(true);
     if (emailError) {
       setEmailError(!emailError);
     }
@@ -37,9 +35,10 @@ const Login = () => {
       setPasswordError(!passwordError);
     }
     try {
+      setLoading(true);
       const response = await axios.post("http://localhost:3000/auth/login", {
-        email: email.current,
-        password: password.current,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
       });
       const { token, userId } = response.data;
       setCookie("access_token", token, {
@@ -57,6 +56,7 @@ const Login = () => {
       } else {
         console.log("Something is wrong. Please Try again later.");
       }
+    } finally {
       setLoading(false);
     }
   };
@@ -77,24 +77,14 @@ const Login = () => {
           <h2>Sign In</h2>
           <section className="form-group">
             <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              onChange={(e) => (email.current = e.target.value)}
-              required
-            />
+            <input type="text" id="email" ref={emailRef} required />
             {emailError && (
               <p className="errorMsg">Incorrect email address. Try again.</p>
             )}
           </section>
           <section className="form-group">
             <label htmlFor="password">Password</label>
-            <input
-              type={passwordFieldType}
-              id="password"
-              onChange={(e) => (password.current = e.target.value)}
-              required
-            />
+            <input type="password" id="password" ref={passwordRef} required />
             <div
               className="show-hide-icon"
               onClick={togglePasswordVisibility}
@@ -114,6 +104,7 @@ const Login = () => {
             type="submit"
             className="signin-btn"
             onClick={(e) => e.currentTarget.blur()}
+            disabled={loading}
           >
             {!loading ? "SIGN IN" : <Spinner size="20px" />}
           </button>

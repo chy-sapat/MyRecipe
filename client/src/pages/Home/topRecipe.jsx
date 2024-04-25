@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const TopRecipe = () => {
   const [recipeData, setRecipeData] = useState();
-
-  useEffect(() => {}, []);
 
   return (
     <section className="top-recipe-container">

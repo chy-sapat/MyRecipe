@@ -2,6 +2,7 @@
 
 .user-profile-container {
   width: 100%;
+  height: 100vh;
   overflow-y: scroll;
 
   .user-profile-wrapper {
@@ -46,11 +47,45 @@
       gap: 1rem;
       border-bottom: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
       padding-block: 1rem;
+
+      .active {
+        color: base.$primary_color;
+      }
+
+      .active::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 3px;
+        margin-block: 2px;
+        background-color: base.$primary_color;
+        border-radius: 5px;
+        transform-origin: left;
+        animation: navUnderlineAnimation 0.2s linear;
+      }
     }
 
     .profile-nav-link {
-      font-size: 1.2rem;
+      font-size: 1rem;
       cursor: pointer;
     }
+
+    .heading {
+      font-size: 1.25rem;
+      font-weight: base.$medium;
+    }
+  }
+}
+
+
+@keyframes navUnderlineAnimation {
+  0% {
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(0.5);
+  }
+  100% {
+    transform: scaleX(1);
   }
 }

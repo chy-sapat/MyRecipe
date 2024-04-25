@@ -76,7 +76,7 @@ const Nav = ({ navStatus, setNavStatus }) => {
                 </Link>
                 <ul className="profile-menu-links">
                   <li>
-                    <NavLink to="/create-recipe" className="profile-menu-link">
+                    <NavLink to="/recipe/create" className="profile-menu-link">
                       <div className="icon">
                         <IoCreateOutline size="20px" />
                       </div>

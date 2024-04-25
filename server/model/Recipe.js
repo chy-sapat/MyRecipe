@@ -8,11 +8,11 @@ const RecipeSchema = new mongoose.Schema(
     ingredients: [{ type: String, required: true }],
     steps: [{ type: String, required: true }],
     cookingTime: {
-      cookingHr: { type: Number },
-      cookingMin: { type: Number },
+      cookingHr: { type: Number, default: 0 },
+      cookingMin: { type: Number, default: 0 },
     },
     skill: { type: String },
-    serving: { type: Number },
+    additionalTips: { type: String },
     attachment: [{ type: String }],
     ratings: [
       {

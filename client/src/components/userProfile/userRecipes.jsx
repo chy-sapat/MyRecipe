@@ -20,6 +20,7 @@ const UserRecipes = ({ userId }) => {
   }, []);
   return (
     <>
+      <h2 className="heading">My Recipes</h2>
       {userPosts.length > 0 ? (
         <section className="posts">
           {userPosts.map((post, index) => {

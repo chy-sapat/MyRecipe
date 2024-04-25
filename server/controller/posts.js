@@ -12,7 +12,7 @@ const PostUpload = async (req, res) => {
     steps,
     cookingTime,
     skill,
-    serving,
+    additionalTips,
   } = req.body;
   let image = req.file ? req.file.filename : "defaultPostImage.jpg";
   const attachment = image;
@@ -24,7 +24,7 @@ const PostUpload = async (req, res) => {
     steps: JSON.parse(steps),
     cookingTime: JSON.parse(cookingTime),
     skill,
-    serving,
+    additionalTips,
     attachment,
     userId,
     username,
@@ -85,7 +85,7 @@ const SaveRecipe = async (req, res) => {
 const DeleteRecipe = async (req, res) => {
   try {
     const recipeId = req.params.id;
-    await RecipeModel.findByIdAndDelete(recipeId);
+    const recipe = await RecipeModel.findByIdAndDelete(recipeId);
     res.status(200).json({ message: "Recipe Deleted Successfully" });
   } catch (error) {
     res.status(500);

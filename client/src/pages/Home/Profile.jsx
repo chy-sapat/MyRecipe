@@ -7,10 +7,15 @@ import UserCollection from "@components/userProfile/userCollection";
 import LoadingSpinner2 from "@components/loading/loadingspinner2";
 import { useGetUserId } from "@hooks/GetUserId";
 import { useGetUserDetails } from "@hooks/GetUserDetails";
+import UserProfileSetting from "@components/userProfile/userProfileSetting";
+import "@styles/profile.scss";
+import { useSelector } from "react-redux";
 const Profile = () => {
   const params = useParams();
+  const isSignedIn = useSelector((state) => state.signedIn.value);
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState("");
+  const [activePage, setActivePage] = useState("userRecipe");
   const userId = useGetUserId();
   const userDetail = useGetUserDetails();
   useEffect(() => {
@@ -21,7 +26,10 @@ const Profile = () => {
           setUserData(userDetail);
         } else {
           const response = await axios.get(
-            `http://localhost:3000/auth/fetch-user-data/${params.userId}`
+            `http://localhost:3000/auth/fetch-user-data/${params.userId}`,
+            {
+              timeout: 1000,
+            }
           );
           setUserData(response.data);
         }
@@ -42,17 +50,49 @@ const Profile = () => {
           <section className="user-profile-wrapper">
             {userData && <UserProfileInfo userData={userData} />}
             <ul className="userprofile-nav-links">
-              <li className="profile-nav-link">Recipes</li>
-              <li className="profile-nav-link">Collections</li>
-              <li className="profile-nav-link">Settings</li>
+              <li
+                className={`profile-nav-link ${
+                  activePage == "userRecipe" && "active"
+                }`}
+                onClick={() => setActivePage("userRecipe")}
+              >
+                Recipes
+              </li>
+              <li
+                className={`profile-nav-link ${
+                  activePage == "userCollection" && "active"
+                }`}
+                onClick={() => setActivePage("userCollection")}
+              >
+                Collections
+              </li>
+              {isSignedIn && userId == userData._id && (
+                <li
+                  className={`profile-nav-link ${
+                    activePage == "setting" && "active"
+                  }`}
+                  onClick={() => setActivePage("setting")}
+                >
+                  Settings
+                </li>
+              )}
             </ul>
             <section className="userprofile-content">
-              <section className="user-recipes">
-                <UserRecipes userId={params.id} />
-              </section>
-              <section className="user-collection">
-                <UserCollection userId={params.id} />
-              </section>
+              {activePage == "userRecipe" && (
+                <section className="user-recipes">
+                  <UserRecipes userId={params.userId} />
+                </section>
+              )}
+              {activePage == "userCollection" && (
+                <section className="user-collection">
+                  <UserCollection userId={params.userId} />
+                </section>
+              )}
+              {activePage == "setting" && (
+                <section className="profile-setting">
+                  <UserProfileSetting userData={userData} />
+                </section>
+              )}
             </section>
           </section>
         </section>

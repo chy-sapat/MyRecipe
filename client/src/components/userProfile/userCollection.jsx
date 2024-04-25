@@ -20,6 +20,7 @@ const UserCollection = ({ userId }) => {
   }, []);
   return (
     <>
+      <h2 className="heading">My Collections</h2>
       {savedPosts.length > 0 ? (
         <section className="posts">
           {savedPosts.map((post, index) => {

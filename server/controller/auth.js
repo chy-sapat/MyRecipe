@@ -23,7 +23,7 @@ const Register = async (req, res) => {
   });
 
   await newUser.save();
-  res.status(200).json({ message: "Registered Successfully" });
+  res.status(201).json({ message: "Registered Successfully" });
 };
 
 const Login = async (req, res) => {

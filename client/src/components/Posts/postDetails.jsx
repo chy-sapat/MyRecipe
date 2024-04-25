@@ -22,6 +22,10 @@ const PostDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const editRecipe = () => {
+    navigate(`/recipe/edit/${postData._id}`);
+  };
+
   const DeleteRecipe = async () => {
     try {
       const response = await axios.delete(
@@ -92,7 +96,7 @@ const PostDetails = () => {
             <section className="recipe-info">
               {userId == postData.userId && (
                 <section className="recipe-modify-option">
-                  <div className="edit-icon" title="Edit">
+                  <div className="edit-icon" title="Edit" onClick={editRecipe}>
                     <FaRegEdit size="25px" />
                   </div>
                   <div
@@ -172,7 +176,7 @@ const PostDetails = () => {
           <section className="recipe-body">
             {postData.description && (
               <section className="recipe-description">
-                <h3 className="labels">Description</h3>
+                <h3 className="labels">About This Recipe</h3>
                 <p>{postData.description}</p>
               </section>
             )}

@@ -4,6 +4,10 @@ import "@styles/userProfile.scss";
 import { useGetUserDetails } from "@hooks/GetUserDetails";
 import { useGetUserId } from "@hooks/GetUserId";
 import PostCard from "@components/Posts/postCard";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { MdOutlineReport } from "react-icons/md";
+
 
 const UserProfileInfo = ({ userData }) => {
   const userId = useGetUserId();
@@ -32,6 +36,11 @@ const UserProfileInfo = ({ userData }) => {
               <button>Follow</button>
             )}
           </section> */}
+        </section>
+        <section className="profile-options">
+          <div className="report-icon">
+            <MdOutlineReport size="30px"/>
+          </div>
         </section>
       </section>
     </>
