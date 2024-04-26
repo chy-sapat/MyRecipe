@@ -8,6 +8,8 @@ import Layout from "./pages/Home/Layout";
 import CreateAccountForm from "pages/Auth/form";
 import CreatePreference from "pages/Auth/preference";
 import ProfileImgUpload from "pages/Auth/profileImgUpload";
+import AdminDashboard from "pages/Admin/dashboard";
+import AdminLogin from "pages/Admin/login";
 function App() {
   return (
     <>
@@ -26,6 +28,10 @@ function App() {
                 element={<ProfileImgUpload />}
               />
               <Route path="preference" element={<CreatePreference />} />
+            </Route>
+            <Route path="/admin/*">
+              <Route index element={<AdminDashboard />} />
+              <Route path="login" element={<AdminLogin />} />
             </Route>
             {/* <Route path="*" element={<h1>Nothing to see here!</h1>} /> */}
           </Routes>
