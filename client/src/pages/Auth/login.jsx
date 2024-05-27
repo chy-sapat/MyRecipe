@@ -108,7 +108,6 @@ const Login = () => {
           >
             {!loading ? "SIGN IN" : <Spinner size="20px" />}
           </button>
-          <span>Forgot Password</span>
           <p className="signup-link-responsive">
             Don't have an account?{" "}
             <span

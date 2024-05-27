@@ -2,20 +2,23 @@
 
 .posts {
   width: 100%;
-  margin-top: 1rem;
   display: inline-grid;
   grid-template-columns: auto;
   gap: 1rem;
   //Post card starts here
   .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     padding: 0.5rem;
     // border: 1px solid base.$neutral_color;
     border-radius: 5px;
-    // box-shadow: 2px 2px 5px 1px base.$neutral_color3;
+    background-color: base.$neutral_color5;
+    box-shadow: 2px 2px 10px base.$neutral_color3;
     color: base.$neutral_color;
-    .post-body {
-      padding-block: 1rem;
-    }
+    // .post-body {
+    //   padding-block: 1rem;
+    // }
     .post-title {
       width: fit-content;
       font-size: 1rem;
@@ -55,7 +58,6 @@
       width: 100%;
       border-radius: 5px;
       position: relative;
-      overflow: hidden;
 
       img {
         width: 100%;

@@ -7,7 +7,6 @@ const PostCard = ({ postInfo }) => {
   return (
     <>
       <section className="post-images">
-        <p className="post-description">{postInfo.description}</p>
         <Link to={`/recipe/${postInfo._id}`} className="post-title">
           <img
             src={`http://localhost:3000/assets/${postInfo.attachment[0]}`}

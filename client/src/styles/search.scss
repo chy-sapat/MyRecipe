@@ -1,23 +1,23 @@
 @use "./base.scss";
 
 .search-container {
-  width: 100%;
+  flex: 1;
   position: relative;
 
   .searchbar-wrapper {
-    width: min(100%, 450px);
+    width: 450px;
     margin-inline: auto;
     position: relative;
   }
 
   .search-input {
     width: 100%;
-    margin-inline: auto;
     padding-block: 0.5rem;
     padding-inline: 2.25rem 0.75rem;
     border: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
-    border-radius: 25px;
+    border-radius: 10px;
     font-size: 1.25rem;
+    color: base.$neutral_color3;
     outline: none;
   }
 
@@ -50,9 +50,11 @@
   height: 100%;
   padding: 1rem;
   .search-result {
-    padding: 1rem;
     h3 {
+      @include base.block-template;
       font-size: 1.5rem;
+      color: base.$neutral_color3;
+      margin-block: 1rem;
     }
   }
   .no-search-result {

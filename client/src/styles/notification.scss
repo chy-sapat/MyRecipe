@@ -31,8 +31,9 @@
 .empty-notification {
   width: 100%;
   flex-grow: 1;
-  display: grid;
-  place-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 900px) {

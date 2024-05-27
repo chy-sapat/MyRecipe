@@ -4,12 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { togglePopUp } from "@features/popUp";
 import RecipeForm from "@components/Recipe Form/RecipeForm";
+import { useGetUserId } from "@hooks/GetUserId";
+import { useGetUserDetails } from "@hooks/GetUserDetails";
 
 const CreateRecipe = () => {
   const isSignedIn = useSelector((state) => state.signedIn.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userId = useGetUserId();
+  const userDetail = useGetUserDetails();
   const handlePost = async (formData) => {
+    formData.append("userId", userId);
+    formData.append("username", userDetail.username);
     try {
       const response = await axios.post(
         "http://localhost:3000/recipe/post",
@@ -20,6 +26,7 @@ const CreateRecipe = () => {
     } catch (err) {
       console.error(err);
     }
+    console.log(formData);
   };
   useEffect(() => {
     if (!isSignedIn) {

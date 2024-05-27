@@ -25,7 +25,7 @@ const ProfileImgUpload = () => {
         "http://localhost:3000/uploads/profile-image",
         imgData
       );
-      navigate("/", { replace: true });
+      navigate("/auth", { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +36,7 @@ const ProfileImgUpload = () => {
         <div className="upload-image-wrapper">
           <div className="heading">
             <Logo />
-            <p className="skip-link" onClick={() => navigate("/")}>
+            <p className="skip-link" onClick={() => navigate("/auth")}>
               Skip
             </p>
           </div>

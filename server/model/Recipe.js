@@ -6,10 +6,10 @@ const RecipeSchema = new mongoose.Schema(
     tags: [{ type: String }],
     description: { type: String },
     ingredients: [{ type: String, required: true }],
-    steps: [{ type: String, required: true }],
+    instructions: [{ type: String, required: true }],
     cookingTime: {
-      cookingHr: { type: Number, default: 0 },
-      cookingMin: { type: Number, default: 0 },
+      hour: { type: Number, default: 0 },
+      min: { type: Number, default: 0 },
     },
     skill: { type: String },
     additionalTips: { type: String },
@@ -30,8 +30,15 @@ const RecipeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-RecipeSchema.pre("findOneAndUpdate", function (next) {
-  console.log(this.getUpdate());
+RecipeSchema.pre("save", function (next) {
+  const totalRatings = this.ratings.length;
+  if (totalRatings > 0) {
+    const ratingsNum = this.ratings.map((obj) => obj.rating);
+    const sumRating = ratingsNum.reduce((sum, curr) => sum + curr);
+    this.avgRating = sumRating / totalRatings;
+  } else {
+    this.avgRating = 0;
+  }
   next();
 });
 

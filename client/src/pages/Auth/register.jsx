@@ -47,6 +47,7 @@ const Register = () => {
             <PageOne
               emailValidation={emailValidation}
               setEmailValidation={setEmailValidation}
+              setActivePage={setActivePage}
               email={email}
               setEmail={setEmail}
             />
@@ -67,22 +68,29 @@ const Register = () => {
 export default Register;
 
 //Email
-const PageOne = ({ emailValidation, setEmailValidation, email, setEmail }) => {
-  const [emailStatus, setEmailStatus] = useState("");
+const PageOne = ({
+  emailValidation,
+  setEmailValidation,
+  email,
+  setEmail,
+  setActivePage,
+}) => {
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
   const handleChange = (e) => {
-    if (emailStatus) {
-      setEmailStatus("");
+    if (error) {
+      setError(!error);
     }
     setEmail(e.target.value);
   };
   const next = (e) => {
     e.preventDefault();
     if (validator.isEmail(email)) {
-      setEmailValidation(!emailValidation);
+      setActivePage("second");
     } else {
-      setEmailStatus("invalid");
-      console.log("Invalid Email");
+      setError(!error);
+      setErrorMsg("Please enter a valid email.");
     }
   };
   return (
@@ -94,14 +102,12 @@ const PageOne = ({ emailValidation, setEmailValidation, email, setEmail }) => {
           <input
             type="text"
             id="email"
-            className={`${emailStatus}-email`}
+            className={`${error && "invalid"}-email`}
             value={email}
             onChange={(e) => handleChange(e)}
             required
           />
-          {emailStatus && (
-            <p className="errorMsg">Please enter a valid email address.</p>
-          )}
+          {error && <p className="errorMsg">{errorMsg}</p>}
         </section>
         <button className="signup-button" type="submit">
           SIGN UP

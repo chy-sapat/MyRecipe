@@ -7,6 +7,7 @@ import { toggleNotificationPanel } from "@features/notificationSlice";
 import "@styles/heading.scss";
 
 const HeaderBar = ({ navStatus, setNavStatus }) => {
+  const isSignedIn = useSelector((state) => state.signedIn.value);
   const notificationPanel = useSelector(
     (state) => state.notificationPanel.value
   );
@@ -33,14 +34,16 @@ const HeaderBar = ({ navStatus, setNavStatus }) => {
       <header>
         <HamburgerMenu state={navStatus} toggle={toggleNavigation} />
         <Logo />
-        <div
-          className={`notification-icon ${notificationPanel}-notification`}
-          onBlur={() => dispatch(toggleNotificationPanel("close"))}
-          onClick={toggleNotification}
-          tabIndex="0"
-        >
-          <IoIosNotificationsOutline size="35px" />
-        </div>
+        {isSignedIn && (
+          <div
+            className={`notification-icon ${notificationPanel}-notification`}
+            onBlur={() => dispatch(toggleNotificationPanel("close"))}
+            onClick={toggleNotification}
+            tabIndex="0"
+          >
+            <IoIosNotificationsOutline size="35px" />
+          </div>
+        )}
       </header>
     </>
   );

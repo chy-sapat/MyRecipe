@@ -67,3 +67,10 @@ $regular: 400;
   color: base.$neutral_color5;
 }
 
+@mixin block_template {
+  padding: 1rem;
+  background-color: $neutral_color5;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px $neutral_color;
+}
+

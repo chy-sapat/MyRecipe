@@ -25,19 +25,8 @@ const CreateAccountForm = () => {
         username: username.current,
         description: description.current,
       });
-      if (response.status == 200) {
-        const res = await axios.post("http://localhost:3000/auth/login", {
-          email: userDetails.email,
-          password: userDetails.password,
-        });
-        setCookie("access_token", res.data.token, {
-          sameSite: "none",
-          secure: true,
-        });
-        window.localStorage.setItem("userId", response.data.userId);
-        dispatch(removeDetails());
-        navigate("/create-profile/upload-profile-image");
-      }
+      dispatch(removeDetails());
+      navigate("/create-profile/upload-profile-image");
     } catch (err) {
       console.log(err);
     }

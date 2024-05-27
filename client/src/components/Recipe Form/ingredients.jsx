@@ -9,9 +9,12 @@ const IngredientForm = ({ editMode, ingredients, setIngredients }) => {
   };
   const removeIngredients = (index, e) => {
     e.preventDefault();
-    const newIngredients = [...ingredients];
-    newIngredients.splice(index, 1);
+    const ringredient = ingredients[index];
+    const newIngredients = ingredients.filter(
+      (ingredient) => ingredient != ringredient
+    );
     setIngredients(newIngredients);
+    console.log(newIngredients);
   };
   const handleIngredientsChange = (e, index) => {
     const newIngredients = [...ingredients];

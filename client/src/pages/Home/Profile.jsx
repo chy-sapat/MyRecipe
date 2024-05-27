@@ -22,17 +22,10 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         setLoading(true);
-        if (userId == params.id) {
-          setUserData(userDetail);
-        } else {
-          const response = await axios.get(
-            `http://localhost:3000/auth/fetch-user-data/${params.userId}`,
-            {
-              timeout: 1000,
-            }
-          );
-          setUserData(response.data);
-        }
+        const response = await axios.get(
+          `http://localhost:3000/auth/fetch-user-data/${params.userId}`
+        );
+        setUserData(response.data);
       } catch (error) {
         console.log(error);
       } finally {

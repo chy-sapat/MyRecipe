@@ -1,5 +1,15 @@
 import mongoose from "mongoose";
 
+const notificationSchema = new mongoose.Schema(
+  {
+    message: { type: String },
+    username: { type: String },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const UserSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -11,6 +21,7 @@ const UserSchema = new mongoose.Schema(
     savedRecipe: [{ type: mongoose.Schema.Types.ObjectId, ref: "recipe" }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
     followed: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+    notification: [{ type: notificationSchema }],
     accountStatus: {
       type: String,
       enum: ["active", "suspended"],

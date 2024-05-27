@@ -8,8 +8,9 @@ import "dotenv/config";
 
 import { UserRouter } from "./routes/user.js";
 import { ProfileImageUpload } from "./controller/profilePicture.js";
-import { PostUpload } from "./controller/posts.js";
+import { EditRecipe, PostUpload } from "./controller/posts.js";
 import { RecipeRouter } from "./routes/post.js";
+import { AdminRouter } from "./routes/admin.js";
 
 //Config
 const __filename = fileURLToPath(import.meta.url);
@@ -36,9 +37,11 @@ const upload = multer({ storage });
 //Route with file
 app.post("/uploads/profile-image", upload.single("image"), ProfileImageUpload);
 app.post("/recipe/post", upload.single("attachment"), PostUpload);
+app.patch("/recipe/update/:recipeId", upload.single("attachment"), EditRecipe);
 //Routes without files
 app.use("/auth", UserRouter);
 app.use("/recipe", RecipeRouter);
+app.use("/admin", AdminRouter);
 
 mongoose.connect(process.env.DB_URI);
 

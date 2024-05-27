@@ -38,4 +38,14 @@ const ChangeUserPassword = async (req, res) => {
   }
 };
 
-export { FetchUserData, UpdateUserData, ChangeUserPassword };
+const DeleteUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await UserModel.findByIdAndDelete(userId);
+    res.status(200);
+  } catch (error) {
+    res.status(500);
+  }
+};
+
+export { FetchUserData, UpdateUserData, ChangeUserPassword, DeleteUser };

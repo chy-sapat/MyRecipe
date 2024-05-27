@@ -1,0 +1,82 @@
+@use "./base.scss";
+
+.setting-container {
+    height: 100%;
+    padding: 1rem;
+    background-color: base.$neutral_color2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: base.$neutral_color3;
+    .heading {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: base.$bold;
+    }
+    .setting-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+        background-color: base.$neutral_color5;
+        box-shadow: 2px 2px 5px base.$neutral_color3;
+    }
+    .heading-secondary {
+        font-size: 1.25rem;
+        font-weight: base.$medium;
+    }
+    .setting-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        label {
+            font-weight: base.$medium;
+        }
+        button {
+            padding: 0.5rem;
+            font-weight: base.$medium;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    }
+    .setting-input {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .setting-input-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        input {
+            width: 50%;
+            padding: 0.5rem;
+            color: base.$neutral_color3;
+            outline: none;
+        }
+    }
+    .action-btns {
+        display: flex;
+        gap: 1rem;
+        margin-left: auto;
+
+        button {
+            padding: 0.5rem;
+            font-weight: base.$medium;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    }
+    .btn-green {
+        border: 1px solid base.$primary_color;
+        background-color: base.$primary_color;
+        color: base.$neutral_color5;
+    }
+    .btn-red {
+        border: 1px solid base.$error_color;
+        background-color: base.$error_color;
+        color: base.$neutral_color5
+    }
+}

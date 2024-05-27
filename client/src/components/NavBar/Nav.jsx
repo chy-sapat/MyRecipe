@@ -42,7 +42,7 @@ const Nav = ({ navStatus, setNavStatus }) => {
     setNavStatus("close");
     dispatch(logout());
     dispatch(removeDetails());
-    navigate("/", { replace: true });
+    navigate("/auth", { replace: true });
   };
   const toggleNotification = () => {
     if (notificationPanel == "open") {
@@ -86,7 +86,6 @@ const Nav = ({ navStatus, setNavStatus }) => {
                   <li
                     className="profile-menu-link notification-link"
                     onClick={toggleNotification}
-                    onBlur={() => dispatch(toggleNotificationPanel("close"))}
                     tabIndex="0"
                   >
                     <div className="icon">
@@ -121,11 +120,11 @@ const Nav = ({ navStatus, setNavStatus }) => {
               Top Recipes
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/pro-recipe" className="nav-link">
               Pro Recipe
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </>

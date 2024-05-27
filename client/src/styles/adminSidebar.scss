@@ -1,0 +1,34 @@
+@use "./base.scss";
+
+.sidebar-container {
+    width: clamp(250px, 35%, 300px);
+    padding-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-right: 1px solid base.$neutral_color;
+
+    .logo {
+        margin-inline: auto;
+    }
+
+    .heading{
+        font-size: 1.25rem;
+        font-weight: base.$medium;
+        text-align: center;
+    }
+
+    .nav-links {
+        .active {
+            background-color: base.$neutral_color;
+        }
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        border-bottom: 1px solid base.$neutral_color;
+        color: base.$neutral_color3;
+    }
+}

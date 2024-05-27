@@ -17,7 +17,7 @@ const StarDisplay = ({ avgRating }) => {
       setAverageRatingStar(temp);
     };
     setStar();
-  }, []);
+  }, [avgRating]);
 
   return (
     <section className="rating-stars">

@@ -17,12 +17,14 @@
   .recipe-heading {
     width: 100%;
     margin-inline: auto;
-    padding-bottom: 1rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-    border-bottom: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
+    border-radius: 10px;
+    background-color: base.$neutral_color5;
+    box-shadow: 2px 2px 5px base.$neutral_color;
   }
 
   .recipe-info {
@@ -39,10 +41,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    position: absolute;
-    top: 0.5rem;
-    right: 0;
-
     .edit-icon {
       &:hover {
         color: base.$primary_color;
@@ -82,7 +80,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 0.5rem;
-    margin-block: 1rem;
     align-items: center;
     .stat {
       display: flex;
@@ -152,6 +149,7 @@
     font-weight: base.$medium;
     margin-bottom: 0.5rem;
     color: base.$neutral_color3;
+    text-align: center;
   }
 
   .recipe-tags {
@@ -163,8 +161,8 @@
   }
 
   .recipe-description {
-    padding-block: 1rem;
-    border-bottom: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
+    @include base.block_template;
+    
     p {
       font-size: 1rem;
       padding: 2rem 1rem;
@@ -173,9 +171,11 @@
   }
 
   .recipe-ingredients,
-  .recipe-directions {
-    padding-block: 1rem;
-    border-bottom: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
+  .recipe-directions,
+  .recipe-tags,
+  .recipe-interactions,
+  .rating-diplay {
+    @include base.block_template
   }
 
   .recipe-ingredients-list,
@@ -228,13 +228,12 @@
     }
   }
 
-  .aggregate-rating {
+  .aggregate-ratings {
     padding-block: 1rem;
   }
 
   .recipe-rating {
     padding-block: 1rem;
-    border-bottom: 1px solid rgba($color: base.$neutral_color, $alpha: 0.5);
     display: flex;
     gap: 1.5rem;
 
@@ -248,6 +247,10 @@
         object-fit: cover;
       }
     }
+  }
+
+  .recipe-rating-input {
+    border-top: 1px solid rgba($color: base.$neutral_color, $alpha: 0.7);
   }
 
   .rating {
@@ -302,6 +305,33 @@
 
   .cancel-btn {
     cursor: pointer;
+  }
+
+  .rating-option {
+    display: flex;
+    gap: 0.5rem;
+
+    .edit-icon,
+    .delete-icon {
+      cursor: pointer;
+    }
+
+    .edit-icon {
+      
+      &:hover {
+        color: rgba($color: base.$primary_color, $alpha: 0.7);
+      }
+    }
+    .delete-icon {
+      
+      &:hover {
+        color: rgba($color: base.$error_color, $alpha: 0.7);
+      }
+    }
+  }
+
+  .rating-display {
+    @include base.block_template;
   }
 
   .comment-display {

@@ -27,7 +27,7 @@ const SearchList = () => {
         <SearchBar />
         <section className="search-result">
           <h3>
-            Search Result ({searchResult.length}): {params.keyword}
+            Search Result ({searchResult.length}) : {params.keyword}
           </h3>
           {searchResult.length == 0 ? (
             <section className="no-search-result">

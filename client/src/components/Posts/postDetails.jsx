@@ -12,6 +12,7 @@ import { useGetUserDetails } from "@hooks/GetUserDetails";
 import { useGetUserId } from "@hooks/GetUserId";
 import Rating from "./rating";
 import { setDetails } from "@features/userDetailsSlice";
+import { togglePopUp } from "@features/popUp";
 
 const PostDetails = () => {
   const isSignedIn = useSelector((state) => state.signedIn.value);
@@ -31,6 +32,7 @@ const PostDetails = () => {
       const response = await axios.delete(
         `http://localhost:3000/recipe/delete-recipe/${postData._id}`
       );
+      dispatch(togglePopUp(response.data.message));
       navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
@@ -94,6 +96,12 @@ const PostDetails = () => {
         <section className="recipe-detail-container">
           <section className="recipe-heading">
             <section className="recipe-info">
+              <h1 className="recipe-title">{postData.title}</h1>
+              <p className="recipe-author">
+                <Link to={`/profile/${postData.userId}`}>
+                  {postData.username}
+                </Link>
+              </p>
               {userId == postData.userId && (
                 <section className="recipe-modify-option">
                   <div className="edit-icon" title="Edit" onClick={editRecipe}>
@@ -108,12 +116,6 @@ const PostDetails = () => {
                   </div>
                 </section>
               )}
-              <h1 className="recipe-title">{postData.title}</h1>
-              <p className="recipe-author">
-                <Link to={`/profile/${postData.userId}`}>
-                  {postData.username}
-                </Link>
-              </p>
               <section className="recipe-stats">
                 <section className="stat">
                   <span>{postData.ingredients.length}</span>
@@ -176,7 +178,7 @@ const PostDetails = () => {
           <section className="recipe-body">
             {postData.description && (
               <section className="recipe-description">
-                <h3 className="labels">About This Recipe</h3>
+                <h3 className="labels">Description</h3>
                 <p>{postData.description}</p>
               </section>
             )}
@@ -194,13 +196,13 @@ const PostDetails = () => {
               </ul>
             </section>
             <section className="recipe-directions">
-              <h3 className="labels">Directions</h3>
+              <h3 className="labels">Instructions</h3>
               <ul className="recipe-directions-list">
-                {postData.steps.map((step, index) => {
+                {postData.instructions.map((instruction, index) => {
                   return (
                     <li key={index} className="step">
                       <span className="numbering">{index + 1}</span>
-                      <p className="info">{step}</p>
+                      <p className="info">{instruction}</p>
                     </li>
                   );
                 })}

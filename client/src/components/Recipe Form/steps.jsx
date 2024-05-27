@@ -2,29 +2,29 @@ import React from "react";
 import { IoAddOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
 
-const StepForm = ({ editMode, steps, setSteps }) => {
+const StepForm = ({ editMode, instructions, setInstructions }) => {
   const addStep = (e) => {
     e.preventDefault();
-    setSteps([...steps, ""]);
+    setInstructions([...instructions, ""]);
   };
 
   const removeStep = (index, e) => {
     e.preventDefault();
-    const newSteps = [...steps];
-    newSteps.splice(index, 1);
-    setSteps(newSteps);
+    const newInstructions = [...instructions];
+    newInstructions.splice(index, 1);
+    setInstructions(newInstructions);
   };
 
   const handleStepChange = (e, index) => {
-    const newSteps = [...steps];
-    newSteps[index] = e.target.value;
-    setSteps(newSteps);
+    const newInstrucitons = [...instructions];
+    newInstrucitons[index] = e.target.value;
+    setInstructions(newInstrucitons);
   };
   return (
     <div className="steps-form">
       <h3 className="label">Instructions</h3>
       <section className="steps">
-        {steps.map((step, index) => {
+        {instructions.map((instructions, index) => {
           return (
             <section key={index} className="step">
               <span className="numbering">{index + 1} . </span>
@@ -32,7 +32,7 @@ const StepForm = ({ editMode, steps, setSteps }) => {
                 cols="30"
                 rows="2"
                 className="recipe-input recipe-normal-input step-input"
-                defaultValue={editMode ? steps[index] : null}
+                defaultValue={editMode ? instructions[index] : null}
                 onChange={(e) => handleStepChange(e, index)}
               ></textarea>
               <div

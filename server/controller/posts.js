@@ -1,5 +1,7 @@
 import { RecipeModel } from "../model/Recipe.js";
 import { UserModel } from "../model/User.js";
+import fs from "fs";
+import path from "path";
 
 const PostUpload = async (req, res) => {
   const {
@@ -9,7 +11,7 @@ const PostUpload = async (req, res) => {
     tags,
     description,
     ingredients,
-    steps,
+    instructions,
     cookingTime,
     skill,
     additionalTips,
@@ -21,7 +23,7 @@ const PostUpload = async (req, res) => {
     tags: JSON.parse(tags),
     description,
     ingredients: JSON.parse(ingredients),
-    steps: JSON.parse(steps),
+    instructions: JSON.parse(instructions),
     cookingTime: JSON.parse(cookingTime),
     skill,
     additionalTips,
@@ -30,14 +32,52 @@ const PostUpload = async (req, res) => {
     username,
   });
   await recipe.save();
-  res.status(200).json({ message: "Recipie Posted", payload: recipe });
+  res.status(200).json({ message: "Recipie Posted" });
+};
+
+const EditRecipe = async (req, res) => {
+  const recipeId = req.params.recipeId;
+  const {
+    title,
+    tags,
+    description,
+    ingredients,
+    steps,
+    cookingTime,
+    skill,
+    additionalTips,
+  } = req.body;
+  try {
+    const recipe = await recipe.findByIdAndUpdate(recipeId, {
+      title: title,
+      tags: JSON.parse(tags),
+      description: description,
+      ingredients: JSON.parse(ingredients),
+      steps: JSON.parse(steps),
+      cookingTime: JSON.parse(cookingTime),
+      skill: skill,
+      additionalTips: additionalTips,
+    });
+    res.status(200).json({ message: "Recipe Updated" });
+  } catch (error) {
+    res.status(500);
+  }
 };
 
 const FetchAllRecipe = async (req, res) => {
   try {
     const recipes = await RecipeModel.find({}).sort({ createdAt: -1 });
+
     res.status(200).json(recipes);
   } catch (err) {
+    res.status(500);
+  }
+};
+const FetchTopRecipes = async (req, res) => {
+  try {
+    const recipes = await RecipeModel.find({}).sort({ avgRating: -1 });
+    res.status(200).json(recipes);
+  } catch (error) {
     res.status(500);
   }
 };
@@ -123,26 +163,43 @@ const FetchSavedRecipe = async (req, res) => {
 
 const Rating = async (req, res) => {
   const recipeId = req.params.recipeId;
-  const { userId, username, userImage, rating, comment, newAvg } = req.body;
+  const { userId, username, userImage, rating, comment } = req.body;
   try {
-    const recipe = await RecipeModel.findOneAndUpdate(
-      { _id: recipeId },
-      {
-        $push: {
-          ratings: {
-            userId: userId,
-            username: username,
-            userImage: userImage,
-            rating: rating,
-            comment: comment,
-          },
-        },
-        $set: {
-          avgRating: { $add: [this.avgRating, rating] },
-        },
-      },
-      { new: true }
+    const recipe = await RecipeModel.findOne({ _id: recipeId });
+    const newRatings = recipe.ratings.filter(
+      (ratings) => ratings.userId != userId
     );
+    newRatings.push({
+      userId: userId,
+      username: username,
+      userImage: userImage,
+      rating: rating,
+      comment: comment,
+    });
+    recipe.ratings = newRatings;
+    await recipe.save();
+    const user = await UserModel.findById(recipe.userId);
+    user.notification.push = {
+      message: `rated ${recipe.title} with ${rating}`,
+      username: username,
+    };
+    await user.save();
+    res.status(200).json(recipe);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const DeleteRating = async (req, res) => {
+  try {
+    const recipeId = req.params.recipeId;
+    const ratingId = req.body.ratingId;
+    const recipe = await RecipeModel.findById(recipeId);
+    const newRatings = recipe.ratings.filter(
+      (rating) => rating._id != ratingId
+    );
+    recipe.ratings = newRatings;
+    await recipe.save();
     res.status(200).json(recipe);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -159,6 +216,13 @@ const Search = async (req, res) => {
   }
 };
 
+const ReportRecipe = async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const recipe = await RecipeModel.findById(recipeId);
+  } catch (error) {}
+};
+
 export {
   PostUpload,
   FetchAllRecipe,
@@ -170,4 +234,7 @@ export {
   DeleteRecipe,
   RemoveSavedRecipe,
   Search,
+  DeleteRating,
+  EditRecipe,
+  FetchTopRecipes,
 };

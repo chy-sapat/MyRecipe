@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-
-import { IoAddOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
-import { useGetUserId } from "@hooks/GetUserId";
-import { useGetUserDetails } from "@hooks/GetUserDetails";
 import "@styles/recipeForm.scss";
 import IngredientForm from "./ingredients";
-import Steps from "./steps";
 import StepForm from "./steps";
 import TimePicker from "./TimePicker";
 
@@ -15,7 +10,7 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
   const [recipeTags, setRecipeTags] = useState([]);
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState(["", ""]);
-  const [steps, setSteps] = useState(["", ""]);
+  const [instructions, setInstructions] = useState(["", ""]);
   const [cookingTime, setCookingTime] = useState({
     cookingHr: 0,
     cookingMin: 0,
@@ -24,16 +19,12 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
   const [attachment, setAttachment] = useState("");
   const [attachmentUrl, setAttachmentUrl] = useState("");
   const [additionalTips, setAdditionalTips] = useState("");
-  const optionRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const [options, setOptions] = useState({
     addCookingTime: false,
     addDifficulty: false,
     addAdditionalTips: false,
     addPicture: false,
   });
-  const userId = useGetUserId();
-  const userDetail = useGetUserDetails();
-  const recipe = new FormData();
 
   const handleTags = (e) => {
     const tagInput = e.target.value;
@@ -58,8 +49,7 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    recipe.append("userId", userId);
-    recipe.append("username", userDetail.username);
+    const recipe = new FormData();
     recipe.append("title", recipeTitle.current);
     recipe.append("tags", JSON.stringify(recipeTags));
     recipe.append("description", description);
@@ -67,7 +57,10 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
       "ingredients",
       JSON.stringify(ingredients.filter((item) => item != ""))
     );
-    recipe.append("steps", JSON.stringify(steps.filter((item) => item != "")));
+    recipe.append(
+      "instructions",
+      JSON.stringify(instructions.filter((item) => item != ""))
+    );
     recipe.append(
       "cookingTime",
       options.addCookingTime
@@ -80,17 +73,15 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
       options.addAdditionalTips ? additionalTips : ""
     );
     recipe.append("attachment", options.addPicture ? attachment : "");
-    recipe.append(
-      "additionalTips",
-      options.addAdditionalTips ? additionalTips : ""
-    );
     handleSubmit(recipe);
   };
   useEffect(() => {
     const formSetUp = () => {
       const newOptions = { ...options };
+      recipeTitle.current = recipeData.title;
+      setDescription(recipeData.description);
       setIngredients(recipeData.ingredients);
-      setSteps(recipeData.steps);
+      setInstructions(recipeData.instructions);
       setRecipeTags(recipeData.tags);
       if (
         recipeData.cookingTime.cookingHr ||
@@ -107,7 +98,6 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
         newOptions.addAdditionalTips = true;
       }
       if (recipeData.attachment[0] != "defaultPostImage.jpg") {
-        setAttachment(recipeData.attachment[0]);
         setAttachmentUrl(
           `http://localhost:3000/assets/${recipeData.attachment[0]}`
         );
@@ -167,7 +157,11 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
         ingredients={ingredients}
         setIngredients={setIngredients}
       />
-      <StepForm editMode={editMode} steps={steps} setSteps={setSteps} />
+      <StepForm
+        editMode={editMode}
+        instructions={instructions}
+        setInstructions={setInstructions}
+      />
       <h3 className="label">More Options</h3>
       <section className="more-option">
         <section className="option-group">
@@ -222,25 +216,13 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
           </label>
           {options.addDifficulty && (
             <section className="difficulty-wrapper">
-              <select onChange={(e) => (skill.current = e.target.value)}>
-                <option
-                  value="Beginner"
-                  selected={editMode && recipeData.skill == "Beginner"}
-                >
-                  Beginner
-                </option>
-                <option
-                  value="Intermidiate"
-                  selected={editMode && recipeData.skill == "Intermidiate"}
-                >
-                  Intermidiate
-                </option>
-                <option
-                  value="Professional"
-                  selected={editMode && recipeData.skill == "Professional"}
-                >
-                  Professional
-                </option>
+              <select
+                defaultValue={editMode ? recipeData.skill : null}
+                onChange={(e) => (skill.current = e.target.value)}
+              >
+                <option value="Beginner">Beginner</option>
+                <option value="Intermidiate">Intermidiate</option>
+                <option value="Professional">Professional</option>
               </select>
             </section>
           )}
@@ -306,7 +288,7 @@ const RecipeForm = ({ buttonLabel, editMode, recipeData, handleSubmit }) => {
           {options.addPicture && (
             <div className="attachment-form">
               <div className="picture-preview">
-                {attachment ? (
+                {options.addPicture ? (
                   <img src={attachmentUrl} />
                 ) : (
                   <span>Add Picture</span>

@@ -1,0 +1,17 @@
+@use "./base.scss";
+
+.top-recipe-container {
+    padding: 1rem;
+    height: 100vh;
+    overflow-y: scroll;
+    .heading-banner {
+        @include base.block-template;
+        margin-block: 1rem;
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: base.$medium;
+            color: base.$neutral_color3;
+        }
+    }
+}

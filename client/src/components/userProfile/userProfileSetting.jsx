@@ -2,7 +2,11 @@ import { useGetUserId } from "@hooks/GetUserId";
 import axios from "axios";
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setDetails } from "@features/userDetailsSlice";
+import { removeDetails, setDetails } from "@features/userDetailsSlice";
+import axiosInstance from "utils/axios";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { logout } from "@features/signedInSlice";
 
 const UserProfileSetting = ({ userData }) => {
   const [name, setName] = useState(userData.name);
@@ -19,7 +23,8 @@ const UserProfileSetting = ({ userData }) => {
   const [isChangePasswordActive, setChangePasswordActive] = useState(false);
   const userId = useGetUserId();
   const dispatch = useDispatch();
-  const isEmailChanged = email != userData.email;
+  const navigate = useNavigate();
+  const [cookies, setCookies, removeCookie] = useCookies("access_token");
 
   const handleImage = (e) => {
     setProfileImage(e.target.files[0]);
@@ -55,14 +60,27 @@ const UserProfileSetting = ({ userData }) => {
       console.log(error);
     }
   };
+  const handleDeleteUser = async () => {
+    try {
+      const response = await axiosInstance.delete(`/auth/user/${userId}`);
+      removeCookie("access_token", {
+        path: "/",
+      });
+      window.localStorage.removeItem("userId");
+      dispatch(logout());
+      dispatch(removeDetails());
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   useEffect(() => {
     setImageUrl(`http://localhost:3000/assets/${userData.picturePath}`);
   }, []);
   return (
     <>
-      <h2 className="heading">Settings</h2>
       <section className="general-setting">
-        <h3 className="heading-secondary">General Setting</h3>
+        <h3 className="heading-secondary">General</h3>
         <form onSubmit={handlePersonalInfoChange}>
           <section className="setting-option-grp image-setting">
             <img src={imageUrl} alt="" className="profile-image-preview" />
@@ -101,7 +119,7 @@ const UserProfileSetting = ({ userData }) => {
               cols="30"
               rows="3"
               className="setting-input"
-              defaultValue={description}
+              defaultValue={userData.description}
               onChange={handleDescriptionChange}
             ></textarea>
           </section>
@@ -115,7 +133,7 @@ const UserProfileSetting = ({ userData }) => {
         </form>
       </section>
       <section className="account-setting">
-        <h3 className="heading-secondary">Account Setting</h3>
+        <h3 className="heading-secondary">Account</h3>
         <section className="setting-option-grp">
           <label htmlFor="email">Email</label>
           <input
@@ -167,7 +185,9 @@ const UserProfileSetting = ({ userData }) => {
         )}
         <section className="setting-option-grp">
           <label htmlFor="delete-btn">Delete Account</label>
-          <button className="btn-red">Delete</button>
+          <button className="btn-red" onClick={handleDeleteUser}>
+            Delete
+          </button>
         </section>
       </section>
     </>

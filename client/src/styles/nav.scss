@@ -24,7 +24,7 @@
 
     .signup-signin-btn {
       @include base.buttons-tmplate;
-      width: 60%;
+      padding-inline: 2rem;
       border-radius: 25px;
       margin-block: 3rem;
     }
@@ -70,24 +70,6 @@
         cursor: pointer;
         transition: 0.3s ease;
         user-select: none;
-
-        &:hover {
-          color: rgba($color: base.$primary_color, $alpha: 0.8);
-        }
-      }
-    }
-    .followers {
-      display: flex;
-      justify-content: space-evenly;
-
-      .count {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.25rem;
-        cursor: pointer;
-        transition: 0.3s ease;
-        font-size: 0.75rem;
 
         &:hover {
           color: rgba($color: base.$primary_color, $alpha: 0.8);
@@ -159,9 +141,7 @@
     .active {
       font-weight: base.$medium;
       color: base.$primary_color;
-      border-color: base.$primary_color;
       border-left: 5px solid base.$primary_color;
-      background-color: rgba($color: base.$neutral_color, $alpha: 0.3);
     }
   }
 }

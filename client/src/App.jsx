@@ -10,6 +10,11 @@ import CreatePreference from "pages/Auth/preference";
 import ProfileImgUpload from "pages/Auth/profileImgUpload";
 import AdminDashboard from "pages/Admin/dashboard";
 import AdminLogin from "pages/Admin/login";
+import AdminLayout from "pages/Admin/adminLayout";
+import UserManagement from "@components/AdminManagement/userManagement";
+import RecipeManagement from "@components/AdminManagement/recipeManagement";
+import ProRecipe from "@components/AdminManagement/proRecipe";
+import Setting from "@components/AdminManagement/setting";
 function App() {
   return (
     <>
@@ -29,10 +34,14 @@ function App() {
               />
               <Route path="preference" element={<CreatePreference />} />
             </Route>
-            <Route path="/admin/*">
+            <Route path="/admin/*" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
-              <Route path="login" element={<AdminLogin />} />
+              <Route path="user-management" element={<UserManagement />} />
+              <Route path="recipe-management" element={<RecipeManagement />} />
+              <Route path="pro-recipe" element={<ProRecipe />} />
+              <Route path="setting" element={<Setting />} />
             </Route>
+            <Route path="/admin/login" element={<AdminLogin />} />
             {/* <Route path="*" element={<h1>Nothing to see here!</h1>} /> */}
           </Routes>
         </div>

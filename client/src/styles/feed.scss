@@ -6,43 +6,43 @@
   position: relative;
   overflow-y: scroll;
 
+  .feed-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: url(../assets/feed-banner-bg.jpg) no-repeat left 60%;
+    background-size: cover;
+    gap: 1rem;
+    padding-block: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px base.$neutral_color;
+    margin-bottom: 1rem;
+  }
+  
   h2 {
-    margin-top: 1rem;
-    color: base.$neutral_color3;
-    font-size: 1.5rem;
-    font-weight: base.$bold;
-  }
-}
-
-.search-bar {
-  position: relative;
-  color: base.$neutral_color;
-  .search-icon {
-    width: fit-content;
-    position: absolute;
-    top: 0.2rem;
-    right: 0.5rem;
-  }
-  input {
-    width: 100%;
-    padding-block: 0.5rem;
-    padding-inline: 1rem 2.75rem;
-    font-size: 1rem;
-    border: 1px solid base.$neutral_color;
-    border-radius: 25px;
+    flex-wrap: nowrap;
+    margin: 1rem;
     color: base.$neutral_color;
-    outline: none;
+    font-size: 2rem;
+    font-weight: base.$bold;
   }
 }
 
 .no-posts {
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  p {
+  h1 {
     width: fit-content;
+    color: base.$neutral_color;
+    font-size: 1.5rem;
     font-weight: base.$medium;
+
+    &::before {
+      content: ":(";
+      margin-right: 1rem;
+      font-size: 2rem;
+    }
   }
 }
